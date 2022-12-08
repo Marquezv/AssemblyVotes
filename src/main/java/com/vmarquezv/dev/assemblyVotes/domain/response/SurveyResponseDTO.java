@@ -25,5 +25,4 @@ public class SurveyResponseDTO {
 	
 	private Timestamp created_on;
 	
-	private UserResponseDTO userRes;
 }
