@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 import com.vmarquezv.dev.assemblyVotes.domain.request.UserRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.UserResponseDTO;
+import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.UserRepository;
 
 @Service
@@ -25,9 +26,9 @@ public class UserService {
 	}
 	
 	
-	public User findById(Long id) throws Exception{
+	public User findById(Long id) {
 		return repository.findById(id)
 				.orElseThrow(
-						() -> new Exception("USER_ID NOT FOUND!"));
+						() -> new ObjectNotFoundException("USER_ID - NOT_FOUND"));
 	}
 }
