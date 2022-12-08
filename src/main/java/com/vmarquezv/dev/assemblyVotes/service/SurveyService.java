@@ -1,6 +1,8 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +31,8 @@ public class SurveyService {
 		return repository.save(surveyReq.build()).toResponse();
 	}
 	
+	public List<SurveyResponseDTO> findAll() {
+		return repository.findAll().stream().map(survey -> survey.toResponse())
+			.collect(Collectors.toList());
+	}
 }
