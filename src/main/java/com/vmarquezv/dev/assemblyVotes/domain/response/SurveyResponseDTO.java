@@ -11,12 +11,17 @@ import lombok.experimental.Accessors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseDTO {
+public class SurveyResponseDTO {
+	
+	private Long survey_id;
 	
 	private Long user_id;
 	
-	private String username;
+	private String description;
+
+	private Integer survey_status;
 	
 	private Timestamp created_on;
 	
+	private UserResponseDTO userRes;
 }

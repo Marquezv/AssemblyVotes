@@ -13,13 +13,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRequestDTO {
 	
-	private Long id;
+	private Long user_id;
 	
 	private String username;
 	
 	private String cpf;
 	
 	private Timestamp created_on;
+	
+	private User user;
 	
 	public User build() {
 		User user = new User()

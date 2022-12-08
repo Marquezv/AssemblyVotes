@@ -44,14 +44,14 @@ public class Session {
 	@JoinColumn(name = "USER_ID")
 	private User user;
 	
-	@Column(name = "OPENING_DATE")
-	private Timestamp opening_date;
+	@Column(name = "STARTED_ON")
+	private Timestamp started_on;
 	
-	@Column(name = "CREATION_DATE")
-	private Timestamp creation_date;
+	@Column(name = "CLOSED_ON")
+	private Timestamp closed_on;
 	
-	@Column(name = "SESSION_STATUS")
-	private Integer session_status;
+	@Column(name = "CREATED_DATE")
+	private Timestamp created_on;
 	
 	@Column(name = "AMOUNT_VOTES")
 	private Integer amount_votes;
@@ -62,7 +62,13 @@ public class Session {
 	@Column(name = "DOWN_VOTES")
 	private Integer down_votes;
 	
+	@Column(name = "ACCESS_STATUS")
+	private Integer access_status;
+	
+	@Column(name = "SESSION_STATUS")
+	private Integer session_status;
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Collection<User> votos = new LinkedHashSet<User>();
+	private Collection<User> allowed_users = new LinkedHashSet<User>();
 	
 }

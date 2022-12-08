@@ -2,6 +2,9 @@ package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
 import java.sql.Timestamp;
 
+import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
+import com.vmarquezv.dev.assemblyVotes.domain.response.UserResponseDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,13 +37,23 @@ public class Survey {
 	@Column(name = "DESCRIPTION")
 	private String description;
 	
-	@Column(name = "CREATION_DATE")
-	private Timestamp creation_date;
+	@Column(name = "CREATED_ON")
+	private Timestamp creation_on;
 	
 	@ManyToOne
     @JoinColumn(name = "USER_ID")
 	private User user;
 	
 	@Column(name = "SURVEY_STATUS")
-	private Integer status;
+	private Integer survey_status;
+
+	public SurveyResponseDTO toResponse() {
+		SurveyResponseDTO surveyRes = new SurveyResponseDTO()
+				.setDescription(this.description)
+				.setCreated_on(this.creation_on)
+				.setUser_id(this.user.getId())
+				.setSurvey_id(this.id)
+				.setSurvey_status(this.survey_status);
+		return surveyRes;
+	}
 }
