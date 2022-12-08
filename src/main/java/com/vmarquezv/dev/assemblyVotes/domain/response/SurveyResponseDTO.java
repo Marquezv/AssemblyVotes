@@ -2,6 +2,8 @@ package com.vmarquezv.dev.assemblyVotes.domain.response;
 
 import java.sql.Timestamp;
 
+import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ public class SurveyResponseDTO {
 	
 	private String description;
 
-	private Integer survey_status;
+	private SurveyStatus survey_status;
 	
 	private Timestamp created_on;
 	

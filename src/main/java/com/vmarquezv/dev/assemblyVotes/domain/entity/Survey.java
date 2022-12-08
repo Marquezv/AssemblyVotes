@@ -2,8 +2,8 @@ package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
 import java.sql.Timestamp;
 
+import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
-import com.vmarquezv.dev.assemblyVotes.domain.response.UserResponseDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,7 +45,7 @@ public class Survey {
 	private User user;
 	
 	@Column(name = "SURVEY_STATUS")
-	private Integer survey_status;
+	private SurveyStatus survey_status;
 
 	public SurveyResponseDTO toResponse() {
 		SurveyResponseDTO surveyRes = new SurveyResponseDTO()

@@ -2,6 +2,7 @@ package com.vmarquezv.dev.assemblyVotes.domain.request;
 
 import java.sql.Timestamp;
 
+import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Survey;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 
@@ -22,7 +23,7 @@ public class SurveyRequestDTO {
 	
 	private Long user_id;
 	
-	private Integer survey_status;
+	private SurveyStatus survey_status;
 	
 	private User user;
 	
