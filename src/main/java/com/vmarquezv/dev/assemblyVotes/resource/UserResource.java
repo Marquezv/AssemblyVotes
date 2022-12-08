@@ -1,9 +1,11 @@
 package com.vmarquezv.dev.assemblyVotes.resource;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +33,9 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@GetMapping
+	public ResponseEntity<List<UserResponseDTO>> findAll(){
+		return ResponseEntity.ok().body(service.findAll());
+	}
 	
 }

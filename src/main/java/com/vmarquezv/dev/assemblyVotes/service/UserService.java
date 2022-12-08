@@ -1,7 +1,9 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,12 @@ public class UserService {
 						() -> new ObjectNotFoundException("USER_ID - NOT_FOUND"));
 	}
 
+	public List<UserResponseDTO> findAll() {
+		return repository.findAll().stream().map(user -> user.toResponse())
+			.collect(Collectors.toList());
+	
+	}
+	
 	private void findByCpf(UserRequestDTO userReq) {
 		Optional<User> user = repository.findByCpf(userReq.getCpf());
 		if(user.isPresent()) {

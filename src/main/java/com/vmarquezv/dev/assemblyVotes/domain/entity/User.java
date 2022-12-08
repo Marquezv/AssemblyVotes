@@ -42,6 +42,7 @@ public class User {
 	
 	public UserResponseDTO toResponse() {
 		UserResponseDTO userRes = new UserResponseDTO()
+				.setUser_id(this.id)
 				.setUsername(this.username)
 				.setCreated_on(this.created_on);
 			return userRes;
