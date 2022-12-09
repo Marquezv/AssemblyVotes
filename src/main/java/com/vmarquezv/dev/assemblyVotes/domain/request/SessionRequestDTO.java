@@ -27,9 +27,9 @@ public class SessionRequestDTO {
 	
 	private Long user_id;
 	
-	private Timestamp started_on;
+	private String started_on;
 	
-	private Timestamp closed_on;
+	private String closed_on;
 	
 	private Timestamp created_on;
 	
@@ -47,8 +47,8 @@ public class SessionRequestDTO {
 		Session session = new Session()
 				.setSurvey(this.survey)
 				.setUser(this.user)
-				.setStarted_on(this.started_on)
-				.setClosed_on(this.closed_on)
+				.setStarted_on(Timestamp.valueOf(started_on))
+				.setClosed_on(Timestamp.valueOf(closed_on))
 				.setCreated_on(this.created_on)
 				.setAmount_votes(this.amount_votes)
 				.setUp_votes(this.up_votes)

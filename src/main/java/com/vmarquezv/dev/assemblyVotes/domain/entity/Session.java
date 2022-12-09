@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 
 import jakarta.persistence.CascadeType;
@@ -55,13 +57,16 @@ public class Session {
 	@Column(name = "CREATED_DATE")
 	private Timestamp created_on;
 	
-	@Column(name = "AMOUNT_VOTES")
+	@ColumnDefault("0")
+	@Column(name = "AMOUNT_VOTES", nullable = false)
 	private Integer amount_votes;
 	
-	@Column(name = "UP_VOTES")
+	@ColumnDefault("0")
+	@Column(name = "UP_VOTES", nullable = false)
 	private Integer up_votes;
 	
-	@Column(name = "DOWN_VOTES")
+	@ColumnDefault("0")
+	@Column(name = "DOWN_VOTES", nullable = false)
 	private Integer down_votes;
 	
 	@Column(name = "ACCESS_STATUS")
