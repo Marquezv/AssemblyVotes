@@ -8,20 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
+import com.vmarquezv.dev.assemblyVotes.domain.entity.Survey;
 import com.vmarquezv.dev.assemblyVotes.domain.request.SurveyRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
+import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.SurveyRepository;
 
 @Service
 public class SurveyService {
 	
 	@Autowired
-	SurveyRepository repository;
-	
-	@Autowired
 	UserService userService;
 	
-	public SurveyResponseDTO insert(SurveyRequestDTO surveyReq) throws Exception {
+	@Autowired
+	SurveyRepository repository;
+	
+	public SurveyResponseDTO insert(SurveyRequestDTO surveyReq) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		
 		surveyReq.setCreated_on(timestamp);
@@ -29,6 +31,12 @@ public class SurveyService {
 		surveyReq.setUser(userService.findById(surveyReq.getUser_id()));
 		surveyReq.setSurvey_status(SurveyStatus.OPPEND);
 		return repository.save(surveyReq.build()).toResponse();
+	}
+	
+	public Survey findById(Long id) {
+		return repository.findById(id)
+				.orElseThrow(
+						() -> new ObjectNotFoundException("SURVEY_ID - NOT_FOUND"));
 	}
 	
 	public List<SurveyResponseDTO> findAll() {

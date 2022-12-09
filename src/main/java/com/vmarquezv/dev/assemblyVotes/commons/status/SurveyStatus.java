@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public enum SurveyStatus {
 	
+	NONE("NONE"),
 	OPPEND("OPPEND"),
-	IN_PROGRESS("IN_PROGRESS"),
-	CLOSED("CLOSED"),
-	FINALIZED("FINALIZED");
+//	IN_PROGRESS("IN_PROGRESS"),
+	CLOSED("CLOSED");
+//	FINALIZED("FINALIZED");
 	
 	private String description;
 

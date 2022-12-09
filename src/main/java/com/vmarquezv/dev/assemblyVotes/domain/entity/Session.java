@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -71,4 +73,21 @@ public class Session {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Collection<User> allowed_users = new LinkedHashSet<User>();
 	
+	public SessionResponseDTO toResponse() {
+		SessionResponseDTO surveyRes = new SessionResponseDTO()
+				.setSession_id(this.id)
+				.setUser_id(this.user.getId())
+				.setSurvey_id(this.survey.getId())
+				.setSurvey_description(this.survey.getDescription())
+				.setStarted_on(this.started_on)
+				.setClosed_on(this.closed_on)
+				.setCreated_on(this.created_on)
+				.setAmount_votes(this.amount_votes)
+				.setUp_votes(this.up_votes)
+				.setDown_votes(this.down_votes)
+				.setAccess_status(this.access_status)
+				.setSession_status(this.session_status);
+		
+		return surveyRes;
+	}
 }
