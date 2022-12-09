@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.vmarquezv.dev.assemblyVotes.domain.request.SessionRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
+import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.SessionRepository;
 
 @Service
@@ -33,7 +34,13 @@ public class SessionService {
 		System.out.println(sessionReq.build());
 		return repository.save(sessionReq.build()).toResponse();
 	}
-
+	
+	public SessionResponseDTO findById(Long id) {
+		return repository.findById(id)
+				.orElseThrow(
+						() -> new ObjectNotFoundException("SESSION_ID - NOT_FOUND")).toResponse();
+	}
+	
 	public List<SessionResponseDTO> findAll() {
 		return repository.findAll().stream()
 				.map(session -> session.toResponse()).collect(Collectors.toList());
