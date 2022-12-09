@@ -1,10 +1,11 @@
 package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
-import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedHashSet;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 
@@ -49,13 +50,16 @@ public class Session {
 	private User user;
 	
 	@Column(name = "STARTED_ON")
-	private Timestamp started_on;
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date started_on;
 	
 	@Column(name = "CLOSED_ON")
-	private Timestamp closed_on;
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date closed_on;
 	
 	@Column(name = "CREATED_DATE")
-	private Timestamp created_on;
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date created_on;
 	
 	@ColumnDefault("0")
 	@Column(name = "AMOUNT_VOTES", nullable = false)

@@ -1,6 +1,8 @@
 package com.vmarquezv.dev.assemblyVotes.config;
 
-import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +32,24 @@ public class LocalConfig {
 	private SessionRepository sessionRepository;
 	
 	@Bean 
-	public void startDB() {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	public void startDB() throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date data = new Date();
 		
-		User user1 = new User((long)1, "Vini", "109.691.830-90", timestamp);
-		User user2 = new User((long)2, "Lua", "309.691.830-90", timestamp);
+		data = formatter.parse("09/12/2022 01:31:00");
+		
+		User user1 = new User((long)1, "Vini", "109.691.830-90", data);
+		User user2 = new User((long)2, "Lua", "309.691.830-90", data);
 		userRepository.saveAll(List.of(user1,user2));
 		
-		Survey survey1 = new Survey((long)1, "Should we renovate the playground?", timestamp, user1, SurveyStatus.OPPEND);
-		Survey survey2 = new Survey((long)2, "Shall we change the gutters?", timestamp, user2, SurveyStatus.OPPEND);
+		Survey survey1 = new Survey((long)1, "Should we renovate the playground?", data, user1, SurveyStatus.OPPEND);
+		Survey survey2 = new Survey((long)2, "Shall we change the gutters?", data, user2, SurveyStatus.OPPEND);
 		surveyRepository.saveAll(List.of(survey1, survey2));
 		
-		Session session1 = new Session((long) 1, survey1, user1, timestamp, timestamp, timestamp, 0, 0, 0, 1, 1, null);
-		Session session2 = new Session((long) 2, survey2, user1, timestamp, timestamp, timestamp, 0, 0, 0, 1, 1, null);
+		Session session1 = new Session((long) 1, survey1, user1, data, data, data, 0, 0, 0, 1, 1, null);
+		Session session2 = new Session((long) 2, survey2, user1, data, data, data, 0, 0, 0, 1, 1, null);
 		sessionRepository.saveAll(List.of(session1, session2));
+		
 	}
 	
 }

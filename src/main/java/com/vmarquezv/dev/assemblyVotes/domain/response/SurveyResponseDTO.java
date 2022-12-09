@@ -1,7 +1,8 @@
 package com.vmarquezv.dev.assemblyVotes.domain.response;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class SurveyResponseDTO {
 
 	private SurveyStatus survey_status;
 	
-	private Timestamp created_on;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date created_on;
 	
 }

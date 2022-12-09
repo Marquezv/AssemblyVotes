@@ -1,6 +1,7 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,9 +23,10 @@ public class UserService {
 	UserRepository repository;
 	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		Date data = new Date(System.currentTimeMillis());
+		data.setHours(data.getHours() -3);
 
-		userReq.setCreated_on(timestamp);
+		userReq.setCreated_on(data);
 		findByCpf(userReq);
 		return repository.save(userReq.build()).toResponse();
 	}

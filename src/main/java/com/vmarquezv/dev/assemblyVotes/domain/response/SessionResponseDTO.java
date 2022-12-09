@@ -1,6 +1,8 @@
 package com.vmarquezv.dev.assemblyVotes.domain.response;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +23,14 @@ public class SessionResponseDTO {
 	
 	private String survey_description;
 	
-	private Timestamp started_on;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date started_on;
 	
-	private Timestamp closed_on;
-	
-	private Timestamp created_on;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date closed_on;
+    
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date created_on;
 	
 	private Integer amount_votes;
 	

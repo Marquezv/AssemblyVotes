@@ -1,7 +1,8 @@
 package com.vmarquezv.dev.assemblyVotes.domain.request;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +20,8 @@ public class UserRequestDTO {
 	
 	private String cpf;
 	
-	private Timestamp created_on;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date created_on;
 	
 	private User user;
 	

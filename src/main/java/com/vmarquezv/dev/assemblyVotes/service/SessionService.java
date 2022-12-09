@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +28,9 @@ public class SessionService {
 	
 	public SessionResponseDTO  insert(SessionRequestDTO sessionReq) {
 		
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
-		sessionReq.setCreated_on(timestamp);
+		Date data = new Date(System.currentTimeMillis());
+		data.setHours(data.getHours() -3);
+		sessionReq.setCreated_on(data);
 		sessionReq.setUser(userService.findById(sessionReq.getUser_id()));
 		sessionReq.setSurvey(surveyService.findById(sessionReq.getSurvey_id()));
 		sessionReq.setAmount_votes(0);

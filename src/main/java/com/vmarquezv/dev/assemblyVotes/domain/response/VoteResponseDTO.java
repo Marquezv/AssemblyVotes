@@ -1,7 +1,8 @@
 package com.vmarquezv.dev.assemblyVotes.domain.response;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.commons.VoteId;
 
 import lombok.AllArgsConstructor;
@@ -17,5 +18,6 @@ public class VoteResponseDTO {
 	
 	private VoteId vote_id;
 	
-	private Timestamp voted_in;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date voted_in;
 }

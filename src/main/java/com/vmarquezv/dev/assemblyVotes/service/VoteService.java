@@ -1,6 +1,7 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,10 @@ public class VoteService {
 		
 		findByUserSession(voteReq.getUser_id(), voteReq.getSession_id());
 		
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		Date data = new Date(System.currentTimeMillis());
+		data.setHours(data.getHours() -3);
 		
-		voteReq.setVoted_in(timestamp);
+		voteReq.setVoted_in(data);
 		voteReq.setVoteId(createVoteId(voteReq.getUser_id(), voteReq.getSession_id()));
 		System.out.println(voteReq);
 		sessionService.votingSession(voteReq.getVote_status(), voteReq.getSession_id());

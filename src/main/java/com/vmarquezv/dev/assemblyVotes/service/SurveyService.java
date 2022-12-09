@@ -1,6 +1,7 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,9 +25,10 @@ public class SurveyService {
 	SurveyRepository repository;
 	
 	public SurveyResponseDTO insert(SurveyRequestDTO surveyReq) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		
-		surveyReq.setCreated_on(timestamp);
+		Date data = new Date(System.currentTimeMillis());
+		data.setHours(data.getHours() -3);
+		surveyReq.setCreated_on(data);
 		
 		surveyReq.setUser(userService.findById(surveyReq.getUser_id()));
 		surveyReq.setSurvey_status(SurveyStatus.OPPEND);

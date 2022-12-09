@@ -1,7 +1,8 @@
 package com.vmarquezv.dev.assemblyVotes.domain.request;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Session;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Survey;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
@@ -17,8 +18,6 @@ public class SessionRequestDTO {
 	
 	private Long session_id;
 	
-	private Timestamp creation_on;
-	
 	private Survey survey;
 	
 	private Long survey_id;
@@ -27,11 +26,14 @@ public class SessionRequestDTO {
 	
 	private Long user_id;
 	
-	private String started_on;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date started_on;
 	
-	private String closed_on;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date closed_on;
 	
-	private Timestamp created_on;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date created_on;
 	
 	private Integer amount_votes;
 	
@@ -47,8 +49,8 @@ public class SessionRequestDTO {
 		Session session = new Session()
 				.setSurvey(this.survey)
 				.setUser(this.user)
-				.setStarted_on(Timestamp.valueOf(started_on))
-				.setClosed_on(Timestamp.valueOf(closed_on))
+				.setStarted_on(this.started_on)
+				.setClosed_on(this.closed_on)
 				.setCreated_on(this.created_on)
 				.setAmount_votes(this.amount_votes)
 				.setUp_votes(this.up_votes)

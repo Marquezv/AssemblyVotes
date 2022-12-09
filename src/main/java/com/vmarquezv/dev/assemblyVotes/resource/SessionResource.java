@@ -40,6 +40,7 @@ public class SessionResource {
 	
 	@GetMapping(value = ID)
 	public ResponseEntity<SessionResponseDTO> findById(@PathVariable Long id){
+		System.out.println(service.findById(id));
 		return ResponseEntity.ok().body(service.findById(id));
 	}
 	
