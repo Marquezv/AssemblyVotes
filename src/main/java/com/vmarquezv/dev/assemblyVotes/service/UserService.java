@@ -1,6 +1,5 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 import com.vmarquezv.dev.assemblyVotes.domain.request.UserRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.UserResponseDTO;
@@ -16,16 +16,19 @@ import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationExceptio
 import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.UserRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class UserService {
 	
 	@Autowired
 	UserRepository repository;
 	
+	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		Date data = new Date(System.currentTimeMillis());
 		data.setHours(data.getHours() -3);
-
+		
 		userReq.setCreated_on(data);
 		findByCpf(userReq);
 		return repository.save(userReq.build()).toResponse();
