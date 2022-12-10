@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,11 +23,11 @@ public class UserService {
 	
 	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
-		Date data = new Date(System.currentTimeMillis());
+		LocalDateTime date = LocalDateTime.now();
 		String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
 		
 		userReq.setCpf(cpfNumbers);
-		userReq.setCreated_on(data);
+		userReq.setCreated_on(date);
 		findByCpf(userReq);
 		return repository.save(userReq.build()).toResponse();
 	}

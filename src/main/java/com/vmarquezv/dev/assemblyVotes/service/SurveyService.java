@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,12 +23,10 @@ public class SurveyService {
 	@Autowired
 	SurveyRepository repository;
 	
-	@SuppressWarnings("deprecation")
 	public SurveyResponseDTO insert(SurveyRequestDTO surveyReq) {
 		
-		Date data = new Date(System.currentTimeMillis());
-		data.setHours(data.getHours() -3);
-		surveyReq.setCreated_on(data);
+		LocalDateTime date = LocalDateTime.now();
+		surveyReq.setCreated_on(date);
 		
 		surveyReq.setUser(userService.findById(surveyReq.getUser_id()));
 		surveyReq.setSurvey_status(SurveyStatus.OPPEND);

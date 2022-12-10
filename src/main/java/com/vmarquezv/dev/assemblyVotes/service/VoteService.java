@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +29,11 @@ public class VoteService {
 	VoteRepository repository;
 
 	public VoteResponseDTO insert(VoteRequestDTO voteReq) throws Exception {
-		Date data = new Date(System.currentTimeMillis());
+		LocalDateTime date = LocalDateTime.now();
 		
 		findByUserSession(voteReq.getUser_id(), voteReq.getSession_id());
 		allowedUserSessionService.userCanVote(voteReq.getSession_id(), voteReq.getUser_id());
-		voteReq.setVoted_in(data);
+		voteReq.setVoted_in(date);
 		voteReq.setVoteId(createVoteId(voteReq.getUser_id(), voteReq.getSession_id()));
 		sessionService.votingSession(voteReq.getVote_status(), voteReq.getSession_id());
 		return repository.save(voteReq.build()).toResponse();

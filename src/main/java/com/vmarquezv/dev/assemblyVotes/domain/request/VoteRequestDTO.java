@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.request;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,7 +24,7 @@ public class VoteRequestDTO {
 	private VoteStatus vote_status;
 
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date voted_in;
+	private LocalDateTime voted_in;
 	
 	@JsonIgnore
 	private VoteId voteId;

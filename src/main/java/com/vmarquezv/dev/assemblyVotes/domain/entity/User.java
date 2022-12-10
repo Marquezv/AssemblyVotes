@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.vmarquezv.dev.assemblyVotes.domain.response.UserResponseDTO;
 
@@ -38,7 +38,7 @@ public class User {
 	private String cpf;
 	
 	@Column(name = "CREATED_ON")
-	private Date created_on;
+	private LocalDateTime created_on;
 	
 	public UserResponseDTO toResponse() {
 		UserResponseDTO userRes = new UserResponseDTO()

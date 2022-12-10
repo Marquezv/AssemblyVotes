@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.response;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -20,6 +20,6 @@ public class UserResponseDTO {
 	private String username;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date created_on;
+	private LocalDateTime created_on;
 	
 }

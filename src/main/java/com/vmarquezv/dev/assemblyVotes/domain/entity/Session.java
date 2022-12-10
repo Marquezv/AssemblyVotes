@@ -1,11 +1,9 @@
 package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;

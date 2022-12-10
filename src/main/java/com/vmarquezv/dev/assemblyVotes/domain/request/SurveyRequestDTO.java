@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.request;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
@@ -21,7 +21,7 @@ public class SurveyRequestDTO {
 	private String description;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date created_on;
+	private LocalDateTime created_on;
 	
 	private Long user_id;
 	

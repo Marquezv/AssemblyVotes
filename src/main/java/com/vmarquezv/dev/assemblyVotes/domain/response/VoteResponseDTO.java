@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.response;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.commons.VoteId;
@@ -19,5 +19,5 @@ public class VoteResponseDTO {
 	private VoteId vote_id;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date voted_in;
+	private LocalDateTime voted_in;
 }

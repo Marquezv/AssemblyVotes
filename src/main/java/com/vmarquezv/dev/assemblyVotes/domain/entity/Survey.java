@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
@@ -38,7 +38,7 @@ public class Survey {
 	private String description;
 	
 	@Column(name = "CREATED_ON")
-	private Date creation_on;
+	private LocalDateTime creation_on;
 	
 	@ManyToOne
     @JoinColumn(name = "USER_ID")

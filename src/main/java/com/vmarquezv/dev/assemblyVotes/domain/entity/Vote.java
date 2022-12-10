@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.vmarquezv.dev.assemblyVotes.domain.entity.commons.VoteId;
 import com.vmarquezv.dev.assemblyVotes.domain.response.VoteResponseDTO;
@@ -30,7 +30,7 @@ public class Vote {
 	private VoteId vote_id;
 	
 	@Column(name = "VOTE_ON")
-	private Date vote_in;
+	private LocalDateTime vote_in;
 	
 	public VoteResponseDTO toResponse() {
 		VoteResponseDTO voteRes = new VoteResponseDTO()
