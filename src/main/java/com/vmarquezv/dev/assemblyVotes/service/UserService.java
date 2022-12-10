@@ -8,15 +8,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 import com.vmarquezv.dev.assemblyVotes.domain.request.UserRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.UserResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationException;
 import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.UserRepository;
-
-import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -25,12 +22,12 @@ public class UserService {
 	UserRepository repository;
 	
 	
+	@SuppressWarnings("deprecation")
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		Date data = new Date(System.currentTimeMillis());
 		data.setHours(data.getHours() -3);
 		String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
 		userReq.setCpf(cpfNumbers);
-
 		userReq.setCreated_on(data);
 		findByCpf(userReq);
 		return repository.save(userReq.build()).toResponse();

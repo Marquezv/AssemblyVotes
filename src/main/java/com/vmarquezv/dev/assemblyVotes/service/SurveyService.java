@@ -1,6 +1,5 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +23,7 @@ public class SurveyService {
 	@Autowired
 	SurveyRepository repository;
 	
+	@SuppressWarnings("deprecation")
 	public SurveyResponseDTO insert(SurveyRequestDTO surveyReq) {
 		
 		Date data = new Date(System.currentTimeMillis());

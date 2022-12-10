@@ -5,16 +5,15 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public enum SurveyStatus {
-	
+public enum AccessStatus {
+
 	NONE("NONE"),
-	OPPEND("OPPEND"),
-	CLOSED("CLOSED");
+	PUBLIC("PUBLIC"),
+	PRIVATE("PRIVATE");
 	
 	private String description;
 
 	public String getDescription() {
 	        return description;
-	    }
+	}
 }
-

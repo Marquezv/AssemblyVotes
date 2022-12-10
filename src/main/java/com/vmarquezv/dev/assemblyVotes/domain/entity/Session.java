@@ -1,23 +1,20 @@
 package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
+import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -74,13 +71,10 @@ public class Session {
 	private Integer down_votes;
 	
 	@Column(name = "ACCESS_STATUS")
-	private Integer access_status;
+	private AccessStatus access_status;
 	
 	@Column(name = "SESSION_STATUS")
-	private Integer session_status;
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Collection<User> allowed_users = new LinkedHashSet<User>();
+	private SessionStatus session_status;
 	
 	public SessionResponseDTO toResponse() {
 		SessionResponseDTO surveyRes = new SessionResponseDTO()

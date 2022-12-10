@@ -1,8 +1,11 @@
 package com.vmarquezv.dev.assemblyVotes.domain.request;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
+import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Session;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Survey;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
@@ -10,7 +13,9 @@ import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
+@Accessors(chain = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,10 +46,12 @@ public class SessionRequestDTO {
 	
 	private Integer down_votes;
 	
-	private Integer access_status;
+	private AccessStatus access_status;
 	
-	private Integer session_status;
-
+	private SessionStatus session_status;
+	
+	private List<User> allowed_users;
+	
 	public Session build() {
 		Session session = new Session()
 				.setSurvey(this.survey)

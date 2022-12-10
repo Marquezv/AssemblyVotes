@@ -29,7 +29,14 @@ public class SessionResource {
 	@PostMapping
 	public ResponseEntity<SessionResponseDTO> insert(@RequestBody SessionRequestDTO sessionRequestDTO) throws Exception {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID)
-				.buildAndExpand(service.insert(sessionRequestDTO).getSurvey_id()).toUri();
+				.buildAndExpand(service.insert(sessionRequestDTO).getSession_id()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@PostMapping(value = "/add")
+	public ResponseEntity<SessionResponseDTO> addUserSession(@RequestBody SessionRequestDTO sessionRequestDTO) throws Exception {
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID)
+				.buildAndExpand(service.addUserSession(sessionRequestDTO).getSession_id()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

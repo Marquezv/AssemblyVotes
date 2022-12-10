@@ -1,8 +1,11 @@
 package com.vmarquezv.dev.assemblyVotes.domain.response;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
+import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,7 +41,9 @@ public class SessionResponseDTO {
 	
 	private Integer down_votes;
 	
-	private Integer access_status;
+	private AccessStatus access_status;
 	
-	private Integer session_status;
+	private SessionStatus session_status;
+	
+	private List<AllowedUserSessionResponseDTO> allowedUserSession;
 }

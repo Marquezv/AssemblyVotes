@@ -1,12 +1,12 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vmarquezv.dev.assemblyVotes.commons.status.VoteStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Vote;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.commons.VoteId;
 import com.vmarquezv.dev.assemblyVotes.domain.request.VoteRequestDTO;
@@ -26,6 +26,7 @@ public class VoteService {
 	@Autowired
 	VoteRepository repository;
 
+	@SuppressWarnings("deprecation")
 	public VoteResponseDTO insert(VoteRequestDTO voteReq) throws Exception {
 		
 		findByUserSession(voteReq.getUser_id(), voteReq.getSession_id());
@@ -35,6 +36,7 @@ public class VoteService {
 		
 		voteReq.setVoted_in(data);
 		voteReq.setVoteId(createVoteId(voteReq.getUser_id(), voteReq.getSession_id()));
+		voteReq.setVote_status(VoteStatus.POSITIVE);
 		System.out.println(voteReq);
 		sessionService.votingSession(voteReq.getVote_status(), voteReq.getSession_id());
 		return repository.save(voteReq.build()).toResponse();
