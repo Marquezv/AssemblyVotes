@@ -53,4 +53,15 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler{
 		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(error);
 	}
 	
+	@ExceptionHandler(StatusArgumentExceptionException.class)
+	public ResponseEntity<StandardError>statusArgumentException(StatusArgumentExceptionException err,  HttpServletRequest req ){
+		StandardError error = new StandardError(
+					Timestamp.valueOf(LocalDateTime.now()),
+					HttpStatus.NOT_ACCEPTABLE.value(),
+					err.getMessage(),
+					req.getRequestURI()
+				);
+		
+		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(error);
+	}
 }

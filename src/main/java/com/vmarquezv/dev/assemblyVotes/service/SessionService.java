@@ -10,13 +10,16 @@ import org.springframework.stereotype.Service;
 import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.VoteStatus;
+import com.vmarquezv.dev.assemblyVotes.commons.util.CheckService;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Session;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 import com.vmarquezv.dev.assemblyVotes.domain.request.SessionRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationException;
 import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
+import com.vmarquezv.dev.assemblyVotes.exceptions.StatusArgumentExceptionException;
 import com.vmarquezv.dev.assemblyVotes.repository.SessionRepository;
+
 
 @Service
 public class SessionService {
@@ -31,24 +34,27 @@ public class SessionService {
 	AllowedUserSessionService allowedUserSessionService;
 	
 	@Autowired
+	CheckService checkService;
+	
+	@Autowired
 	SessionRepository repository;
 	
 	public SessionResponseDTO  insert(SessionRequestDTO sessionReq) {
-		
+		Date data = new Date(System.currentTimeMillis());
+
 		if(sessionReq.getAccess_status() == null || sessionReq.getAccess_status() == AccessStatus.NONE ) {
 			System.out.println(sessionReq);
 			sessionReq.setAccess_status(AccessStatus.PUBLIC);
 		}
-		
-		Date data = new Date(System.currentTimeMillis());
-		
-		sessionReq.setCreated_on(data);
+	
 		sessionReq.setUser(userService.findById(sessionReq.getUser_id()));
 		sessionReq.setSurvey(surveyService.findById(sessionReq.getSurvey_id()));
 		sessionReq.setAmount_votes(0);
 		sessionReq.setUp_votes(0);
 		sessionReq.setDown_votes(0);
 		sessionReq.setSession_status(SessionStatus.NONE);
+		sessionReq.setCreated_on(data);
+		
 		return repository.save(sessionReq.build()).toResponse();
 	}
 	
@@ -61,10 +67,15 @@ public class SessionService {
 		
 		allowedUserSessionService.addUserSession(session, user);
 		
-		if(!checkAccessStatus(session)) {
+		if(!checkService.accessStatus(session.getAccess_status().ordinal())) {
 			throw new DataIntegratyViolationException("SESSION_ID - NOT_PERMITED_ADD_USER");
 		}
+		else if(checkService.startHour(session.getStarted_on())) {
+			
+			throw new DataIntegratyViolationException("SESSION_ID - HAS_BEEN_STARTED");
+		}
 		
+		System.out.println(checkService.startHour(session.getStarted_on()));
 		return findById(sessionReq.getSession_id());
 	}
 	
@@ -103,20 +114,8 @@ public class SessionService {
 			break;
 		}
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + voteStatus);
+			throw new StatusArgumentExceptionException("Unexpected value: " + voteStatus);
 		}
 	}
 	
-	private boolean checkAccessStatus(Session session) {
-		switch (session.getAccess_status().ordinal()){
-		case 1: {
-			return false;
-		}
-		case 2: {
-			return true;
-		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + session.getAccess_status().ordinal());
-		}
-	}
 }

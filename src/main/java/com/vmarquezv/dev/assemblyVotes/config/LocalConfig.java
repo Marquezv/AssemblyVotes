@@ -55,18 +55,18 @@ public class LocalConfig {
 		Survey survey2 = new Survey((long)2, "Shall we change the gutters?", data, user2, SurveyStatus.OPPEND);
 		surveyRepository.saveAll(List.of(survey1, survey2));
 		
-		Collection<User> allowed_users = new LinkedHashSet<User>();
-		allowed_users.add(user2);
-		
-		Session session1 = new Session((long) 1, survey1, user1, data, data, data, 0, 0, 0, AccessStatus.NONE, SessionStatus.NONE);
-		Session session2 = new Session((long) 2, survey2, user1, data, data, data, 0, 0, 0, AccessStatus.PRIVATE, SessionStatus.NONE);
-		
-		Session session3 = new Session((long) 3, survey2, user1, data, data, data, 0, 0, 0, AccessStatus.PUBLIC, SessionStatus.NONE);
-
-		sessionRepository.saveAll(List.of(session1, session2, session3));
-		
-		AllowedUserSession allowedUserSession1 = new AllowedUserSession((long)1, session2, user1);
-		allowedUserSessionRepository.save(allowedUserSession1);
+//		Collection<User> allowed_users = new LinkedHashSet<User>();
+//		allowed_users.add(user2);
+//		
+//		Session session1 = new Session((long) 1, survey1, user1, data, data, data, 0, 0, 0, AccessStatus.NONE, SessionStatus.NONE);
+//		Session session2 = new Session((long) 2, survey2, user1, data, data, data, 0, 0, 0, AccessStatus.PRIVATE, SessionStatus.NONE);
+//		
+//		Session session3 = new Session((long) 3, survey2, user1, data, data, data, 0, 0, 0, AccessStatus.PUBLIC, SessionStatus.NONE);
+//
+//		sessionRepository.saveAll(List.of(session1, session2, session3));
+//		
+//		AllowedUserSession allowedUserSession1 = new AllowedUserSession((long)1, session2, user1);
+//		allowedUserSessionRepository.save(allowedUserSession1);
 	}
 	
 }

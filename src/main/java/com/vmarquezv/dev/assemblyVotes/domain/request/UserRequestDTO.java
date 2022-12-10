@@ -3,7 +3,7 @@ package com.vmarquezv.dev.assemblyVotes.domain.request;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vmarquezv.dev.assemblyVotes.commons.status.annotation.Cpf;
+import com.vmarquezv.dev.assemblyVotes.commons.annotation.Cpf;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 
 import lombok.AllArgsConstructor;

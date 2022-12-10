@@ -9,7 +9,6 @@ public enum SessionStatus {
 	
 	NONE("NONE"),
 	IN_PROGRESS("IN_PROGRESS"),
-	IN_WAITING("IN_WAITING"),
 	FINALIZED("FINALIZED");
 
 	private String description;

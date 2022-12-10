@@ -1,6 +1,6 @@
-package com.vmarquezv.dev.assemblyVotes.commons;
+package com.vmarquezv.dev.assemblyVotes.commons.util;
 
-import com.vmarquezv.dev.assemblyVotes.commons.status.annotation.Cpf;
+import com.vmarquezv.dev.assemblyVotes.commons.annotation.Cpf;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

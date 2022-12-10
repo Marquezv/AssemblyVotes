@@ -1,4 +1,4 @@
-package com.vmarquezv.dev.assemblyVotes.commons.status.annotation;
+package com.vmarquezv.dev.assemblyVotes.commons.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.vmarquezv.dev.assemblyVotes.commons.CpfValidator;
+import com.vmarquezv.dev.assemblyVotes.commons.util.CpfValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
