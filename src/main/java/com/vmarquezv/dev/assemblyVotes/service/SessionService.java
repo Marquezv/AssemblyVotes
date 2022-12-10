@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.VoteStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Session;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 import com.vmarquezv.dev.assemblyVotes.domain.request.SessionRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
+import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationException;
 import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.SessionRepository;
 
@@ -31,11 +33,15 @@ public class SessionService {
 	@Autowired
 	SessionRepository repository;
 	
-	@SuppressWarnings("deprecation")
 	public SessionResponseDTO  insert(SessionRequestDTO sessionReq) {
 		
+		if(sessionReq.getAccess_status() == null || sessionReq.getAccess_status() == AccessStatus.NONE ) {
+			System.out.println(sessionReq);
+			sessionReq.setAccess_status(AccessStatus.PUBLIC);
+		}
+		
 		Date data = new Date(System.currentTimeMillis());
-		data.setHours(data.getHours() -3);
+		
 		sessionReq.setCreated_on(data);
 		sessionReq.setUser(userService.findById(sessionReq.getUser_id()));
 		sessionReq.setSurvey(surveyService.findById(sessionReq.getSurvey_id()));
@@ -55,6 +61,9 @@ public class SessionService {
 		
 		allowedUserSessionService.addUserSession(session, user);
 		
+		if(!checkAccessStatus(session)) {
+			throw new DataIntegratyViolationException("SESSION_ID - NOT_PERMITED_ADD_USER");
+		}
 		
 		return findById(sessionReq.getSession_id());
 	}
@@ -95,6 +104,19 @@ public class SessionService {
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + voteStatus);
+		}
+	}
+	
+	private boolean checkAccessStatus(Session session) {
+		switch (session.getAccess_status().ordinal()){
+		case 1: {
+			return false;
+		}
+		case 2: {
+			return true;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + session.getAccess_status().ordinal());
 		}
 	}
 }

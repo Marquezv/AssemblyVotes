@@ -24,20 +24,19 @@ public class VoteService {
 	SessionService sessionService;
 	
 	@Autowired
+	AllowedUserSessionService allowedUserSessionService;
+	
+	@Autowired
 	VoteRepository repository;
 
-	@SuppressWarnings("deprecation")
 	public VoteResponseDTO insert(VoteRequestDTO voteReq) throws Exception {
+		Date data = new Date(System.currentTimeMillis());
 		
 		findByUserSession(voteReq.getUser_id(), voteReq.getSession_id());
-		
-		Date data = new Date(System.currentTimeMillis());
-		data.setHours(data.getHours() -3);
-		
+		allowedUserSessionService.userCanVote(voteReq.getSession_id(), voteReq.getUser_id());
 		voteReq.setVoted_in(data);
 		voteReq.setVoteId(createVoteId(voteReq.getUser_id(), voteReq.getSession_id()));
 		voteReq.setVote_status(VoteStatus.POSITIVE);
-		System.out.println(voteReq);
 		sessionService.votingSession(voteReq.getVote_status(), voteReq.getSession_id());
 		return repository.save(voteReq.build()).toResponse();
 		

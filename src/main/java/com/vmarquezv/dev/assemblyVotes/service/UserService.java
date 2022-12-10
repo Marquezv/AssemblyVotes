@@ -22,11 +22,10 @@ public class UserService {
 	UserRepository repository;
 	
 	
-	@SuppressWarnings("deprecation")
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		Date data = new Date(System.currentTimeMillis());
-		data.setHours(data.getHours() -3);
 		String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
+		
 		userReq.setCpf(cpfNumbers);
 		userReq.setCreated_on(data);
 		findByCpf(userReq);
@@ -49,7 +48,6 @@ public class UserService {
 	private void findByCpf(UserRequestDTO userReq) {
 		Optional<User> user = repository.findByCpf(userReq.getCpf());
 		if(user.isPresent()) {
-			System.out.println(user);
 			throw new DataIntegratyViolationException("CPF - IN USE");
 		}
 		

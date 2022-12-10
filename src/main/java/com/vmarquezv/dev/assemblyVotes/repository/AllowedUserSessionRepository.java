@@ -19,5 +19,6 @@ public interface AllowedUserSessionRepository extends JpaRepository<AllowedUserS
 	@Query(value = "SELECT * FROM ALLOWEDUSERSESSION WHERE SESSION_ID = ?1",
 			nativeQuery = true)
 	List<AllowedUserSession> findBySession(Long session_id);
+
 }
 
