@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.commons.util;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
@@ -10,26 +10,22 @@ import com.vmarquezv.dev.assemblyVotes.exceptions.StatusArgumentExceptionExcepti
 public class CheckService {
 
 	
-	@SuppressWarnings("deprecation")
-	public boolean startHour(Date started_on) {
-		Date actualDate = new Date(System.currentTimeMillis());
-		started_on.setHours(started_on.getHours() + 1);
+	public boolean hourState(LocalDateTime started_on) {
+		LocalDateTime date = LocalDateTime.now();
 
-		if(started_on.equals(actualDate) || started_on.after(actualDate)) {
-			return true;
-		}
+	  //After
+	    if(date.isAfter(started_on)) {
+	    		return true;
+	    //Before
+	      } else if(date.isBefore(started_on)) {
+	    	 	return false;
+	   //Equals
+	      } else if(date.equals(started_on)) {
+		    	return true;
+	      }
 		return false;
 	}
 	
-	@SuppressWarnings("deprecation")
-	public boolean closedHour(Date closed_on) {
-		Date actualDate = new Date(System.currentTimeMillis());
-		closed_on.setHours(closed_on.getHours() + 1);
-		if(closed_on.equals(actualDate) || actualDate.after(closed_on)) {
-			return true;
-		}
-		return false;
-	}
 	
 	@SuppressWarnings("unused")
 	public boolean accessStatus(int accessStatus) {

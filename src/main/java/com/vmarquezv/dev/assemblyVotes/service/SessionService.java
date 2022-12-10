@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,11 +40,15 @@ public class SessionService {
 	SessionRepository repository;
 	
 	public SessionResponseDTO  insert(SessionRequestDTO sessionReq) {
-		Date data = new Date(System.currentTimeMillis());
-
+		LocalDateTime date = LocalDateTime.now();
 		if(sessionReq.getAccess_status() == null || sessionReq.getAccess_status() == AccessStatus.NONE ) {
-			System.out.println(sessionReq);
 			sessionReq.setAccess_status(AccessStatus.PUBLIC);
+		}
+		else if(sessionReq.getStarted_on().isAfter(sessionReq.getClosed_on()) ||
+				sessionReq.getStarted_on().isBefore(date) ||
+				sessionReq.getClosed_on().isBefore(sessionReq.getStarted_on()) ||
+				sessionReq.getClosed_on().isBefore(date)) {
+			throw new DataIntegratyViolationException("SESSION - INVALID DATE");
 		}
 	
 		sessionReq.setUser(userService.findById(sessionReq.getUser_id()));
@@ -53,8 +57,7 @@ public class SessionService {
 		sessionReq.setUp_votes(0);
 		sessionReq.setDown_votes(0);
 		sessionReq.setSession_status(SessionStatus.NONE);
-		sessionReq.setCreated_on(data);
-		
+		sessionReq.setCreated_on(date);
 		return repository.save(sessionReq.build()).toResponse();
 	}
 	
@@ -65,17 +68,16 @@ public class SessionService {
 						() -> new ObjectNotFoundException("SESSION_ID - NOT_FOUND"));
 		User user = userService.findById(sessionReq.getUser_id());
 		
-		allowedUserSessionService.addUserSession(session, user);
-		
 		if(!checkService.accessStatus(session.getAccess_status().ordinal())) {
 			throw new DataIntegratyViolationException("SESSION_ID - NOT_PERMITED_ADD_USER");
 		}
-		else if(checkService.startHour(session.getStarted_on())) {
+		else if(checkService.hourState(session.getStarted_on())) {
 			
 			throw new DataIntegratyViolationException("SESSION_ID - HAS_BEEN_STARTED");
 		}
-		
-		System.out.println(checkService.startHour(session.getStarted_on()));
+		allowedUserSessionService.userRegisterCheck(session.getId(), user.getId());
+		allowedUserSessionService.addUserSession(session, user);
+
 		return findById(sessionReq.getSession_id());
 	}
 	
@@ -97,6 +99,11 @@ public class SessionService {
 	public void votingSession(VoteStatus voteStatus, Long session_id) {
 		Session session = repository.findById(session_id).orElseThrow(
 					() -> new ObjectNotFoundException("SESSION_ID - NOT_FOUND"));
+		
+		if(checkService.hourState(session.getClosed_on()) || session.getSession_status().equals(SessionStatus.NONE)) {
+			throw new DataIntegratyViolationException("SESSION_ID - NOT_IN_PROGRESS");
+		}
+		
 		Integer upVotes = session.getUp_votes();
 		Integer downVotes = session.getDown_votes();
 		Integer amountVotes = session.getAmount_votes();

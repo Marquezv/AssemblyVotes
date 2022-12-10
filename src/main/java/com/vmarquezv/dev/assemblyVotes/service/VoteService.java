@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vmarquezv.dev.assemblyVotes.commons.status.VoteStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Vote;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.commons.VoteId;
 import com.vmarquezv.dev.assemblyVotes.domain.request.VoteRequestDTO;
@@ -36,7 +35,6 @@ public class VoteService {
 		allowedUserSessionService.userCanVote(voteReq.getSession_id(), voteReq.getUser_id());
 		voteReq.setVoted_in(data);
 		voteReq.setVoteId(createVoteId(voteReq.getUser_id(), voteReq.getSession_id()));
-		voteReq.setVote_status(VoteStatus.POSITIVE);
 		sessionService.votingSession(voteReq.getVote_status(), voteReq.getSession_id());
 		return repository.save(voteReq.build()).toResponse();
 		

@@ -1,6 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.domain.request;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -32,13 +32,13 @@ public class SessionRequestDTO {
 	private Long user_id;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date started_on;
+	private LocalDateTime started_on;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date closed_on;
+	private LocalDateTime closed_on;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date created_on;
+	private LocalDateTime created_on;
 	
 	private Integer amount_votes;
 	

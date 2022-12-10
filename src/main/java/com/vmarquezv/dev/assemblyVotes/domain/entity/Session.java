@@ -1,10 +1,11 @@
 package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
@@ -47,16 +48,13 @@ public class Session {
 	private User user;
 	
 	@Column(name = "STARTED_ON")
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date started_on;
+	private LocalDateTime started_on;
 	
 	@Column(name = "CLOSED_ON")
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date closed_on;
+	private LocalDateTime closed_on;
 	
 	@Column(name = "CREATED_DATE")
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date created_on;
+	private LocalDateTime created_on;
 	
 	@ColumnDefault("0")
 	@Column(name = "AMOUNT_VOTES", nullable = false)

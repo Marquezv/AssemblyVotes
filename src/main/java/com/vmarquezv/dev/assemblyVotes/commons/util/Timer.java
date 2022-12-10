@@ -2,6 +2,7 @@ package com.vmarquezv.dev.assemblyVotes.commons.util;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,8 @@ public class Timer {
 	
 	private final SessionRepository sessionRepository;
 	
-	private final CheckService checkService;
+	@Autowired
+	CheckService checkService;
 	
 	@Scheduled(cron = "* * * ? * *")
 	public void log() {
@@ -27,24 +29,30 @@ public class Timer {
 	}
 
 	@Scheduled(cron = "* * * ? * *")
-    public void setSession(){
+    public void setSessionStarted(){
 		List<Session> sessionList = sessionRepository.findAll();
 		for(Session session : sessionList) {
-			session.setSession_status(statusSession(session));
+			if(checkService.hourState(session.getStarted_on())){
+				if(!checkService.hourState(session.getClosed_on())) {
+					session.setSession_status(SessionStatus.IN_PROGRESS);
+				}
+			}
 			sessionRepository.save(session);
 		}
 		
 	}
 	
-	private SessionStatus statusSession(Session session) {
-		if(checkService.closedHour(session.getClosed_on())){
-			return SessionStatus.FINALIZED;
+	@Scheduled(cron = "* * * ? * *")
+    public void setSessionClosed(){
+		List<Session> sessionList = sessionRepository.findAll();
+		for(Session session : sessionList) {
+			if(checkService.hourState(session.getClosed_on())){
+				session.setSession_status(SessionStatus.FINALIZED);
+			}
+			sessionRepository.save(session);
 		}
 		
-		else if(checkService.startHour(session.getStarted_on())){
-			return SessionStatus.IN_PROGRESS;
-		}
-		return SessionStatus.NONE;
 	}
+	
 	
 }

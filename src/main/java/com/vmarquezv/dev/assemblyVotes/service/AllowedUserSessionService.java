@@ -32,7 +32,7 @@ public class AllowedUserSessionService {
 	public AllowedUserSessionResponseDTO findBySessionUser(Long session_id, Long user_id) {
 		return repository.findBySessionUser(session_id, user_id)
 				.orElseThrow(
-						() -> new ObjectNotFoundException("NOT_FOUND")).toResponse();
+						() -> new ObjectNotFoundException("SESSION_ID || USER_ID - NOT_FOUND")).toResponse();
 	}
 	
 	public void addUserSession(Session session, User user) {
@@ -46,6 +46,13 @@ public class AllowedUserSessionService {
 		Optional<AllowedUserSession> allowedUserSession = repository.findBySessionUser(session_id, user_id);
 		if(allowedUserSession.isEmpty()) {
 			throw new DataIntegratyViolationException("USER_ID - NOT_PERMITED");
+		}
+	}
+	
+	public void userRegisterCheck(Long session_id, Long user_id) {
+		Optional<AllowedUserSession> allowedUserSession = repository.findBySessionUser(session_id, user_id);
+		if(allowedUserSession.isPresent()) {
+			throw new DataIntegratyViolationException("USER_ID - ALREADY_REGISTERED");
 		}
 	}
 }
