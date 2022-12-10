@@ -35,6 +35,7 @@ public class UserResource {
 		if (err.hasErrors()) {
 			throw new InvalidFormatException("CPF - Invalid");
 		}
+		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID)
 				.buildAndExpand(service.insert(userRequestDTO).getUser_id()).toUri();
 		return ResponseEntity.created(uri).build();

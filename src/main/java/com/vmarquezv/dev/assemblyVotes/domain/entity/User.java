@@ -47,4 +47,8 @@ public class User {
 				.setCreated_on(this.created_on);
 			return userRes;
 	}
+	
+//	public String setCPF(String cpf)  {
+//        return cpf.replaceAll("(\\\\\\\\d)(\\\\\\\\d)(\\\\\\\\d)", "$1.$2.$3-");
+//    }
 }

@@ -28,7 +28,9 @@ public class UserService {
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		Date data = new Date(System.currentTimeMillis());
 		data.setHours(data.getHours() -3);
-		
+		String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
+		userReq.setCpf(cpfNumbers);
+
 		userReq.setCreated_on(data);
 		findByCpf(userReq);
 		return repository.save(userReq.build()).toResponse();
