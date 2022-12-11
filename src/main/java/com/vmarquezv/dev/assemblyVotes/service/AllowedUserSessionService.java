@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.AllowedUserSession;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Session;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
@@ -41,12 +42,13 @@ public class AllowedUserSessionService {
 				.setUser(user);
 		repository.save(allowedUserSession);
 	}
-	
-	public void userCanVote(Long session_id, Long user_id) {
+
+	public boolean userCanVote(Long session_id, Long user_id, AccessStatus accessStatus) {
 		Optional<AllowedUserSession> allowedUserSession = repository.findBySessionUser(session_id, user_id);
-		if(allowedUserSession.isEmpty()) {
-			throw new DataIntegratyViolationException("USER_ID - NOT_PERMITED");
+		if(allowedUserSession.isEmpty() && accessStatus.equals(AccessStatus.PRIVATE) ) {
+			return false;
 		}
+		return true;
 	}
 	
 	public void userRegisterCheck(Long session_id, Long user_id) {

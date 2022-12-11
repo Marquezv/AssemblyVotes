@@ -29,6 +29,8 @@ public class SessionResource {
 	
 	private static final String USER_ID = "/user/{user_id}";
 	
+	private static final String ADDUSERSESSION = "/add";
+	
 	@Autowired
 	SessionService service;
 	
@@ -39,7 +41,7 @@ public class SessionResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PostMapping(value = "/add")
+	@PostMapping(value = ADDUSERSESSION)
 	public ResponseEntity<SessionResponseDTO> addUserSession(@RequestBody SessionRequestDTO sessionRequestDTO) throws Exception {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(SESSION_ID)
 				.buildAndExpand(service.addUserSession(sessionRequestDTO).getSession_id()).toUri();
@@ -52,10 +54,10 @@ public class SessionResource {
 				.map(session -> addLink(session)).collect(Collectors.toList())));
 	}
 	
-	@GetMapping 
-	public ResponseEntity<CollectionModel<SessionResponseDTO>> findAllUserCanVote() {
+	@GetMapping(value = USER_ID)
+	public ResponseEntity<CollectionModel<SessionResponseDTO>> findAllUserCanVote(@PathVariable Long user_id) {
 		
-		return ResponseEntity.ok().body(toCollectionModelList(service.findAll().stream()
+		return ResponseEntity.ok().body(toCollectionModelList(service.findAllUserCanVote(user_id).stream()
 				.map(session -> addLink(session)).collect(Collectors.toList())));
 	}
 	

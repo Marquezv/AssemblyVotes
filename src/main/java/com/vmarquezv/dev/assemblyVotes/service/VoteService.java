@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Vote;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.commons.VoteId;
 import com.vmarquezv.dev.assemblyVotes.domain.request.VoteRequestDTO;
+import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.VoteResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationException;
 import com.vmarquezv.dev.assemblyVotes.repository.VoteRepository;
@@ -30,9 +31,11 @@ public class VoteService {
 
 	public VoteResponseDTO insert(VoteRequestDTO voteReq) throws Exception {
 		LocalDateTime date = LocalDateTime.now();
-		
+		SessionResponseDTO session = sessionService.findById(voteReq.getSession_id());
 		findByUserSession(voteReq.getUser_id(), voteReq.getSession_id());
-		allowedUserSessionService.userCanVote(voteReq.getSession_id(), voteReq.getUser_id());
+		if(!allowedUserSessionService.userCanVote(session.getSession_id(), voteReq.getUser_id(), session.getAccess_status())) {
+			throw new DataIntegratyViolationException("USER_ID - NOT_PERMITED");
+		}
 		voteReq.setVoted_in(date);
 		voteReq.setVoteId(createVoteId(voteReq.getUser_id(), voteReq.getSession_id()));
 		sessionService.votingSession(voteReq.getVote_status(), voteReq.getSession_id());
