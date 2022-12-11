@@ -3,6 +3,7 @@ package com.vmarquezv.dev.assemblyVotes.domain.response;
 import java.time.LocalDateTime;
 
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+@Relation(collectionRelation = "users")
 @Accessors(chain = true)
 @Getter
 @Setter

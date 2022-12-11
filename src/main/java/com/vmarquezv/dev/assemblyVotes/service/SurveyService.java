@@ -37,6 +37,12 @@ public class SurveyService {
 						() -> new ObjectNotFoundException("SURVEY_ID - NOT_FOUND"));
 	}
 	
+	public SurveyResponseDTO getSurveyResponse(Long id) {
+		SurveyResponseDTO surveyRes = findById(id).toResponse();
+		surveyRes.setUserResponse(userService.findById(surveyRes.getUser_id()).toResponse());
+		return surveyRes;
+	}
+	
 	public List<SurveyResponseDTO> findAll() {
 		return repository.findAll().stream().map(survey -> survey.toResponse())
 			.collect(Collectors.toList());

@@ -33,7 +33,7 @@ public class VoteService {
 		LocalDateTime date = LocalDateTime.now();
 		SessionResponseDTO session = sessionService.findById(voteReq.getSession_id());
 		findByUserSession(voteReq.getUser_id(), voteReq.getSession_id());
-		if(!allowedUserSessionService.userCanVote(session.getSession_id(), voteReq.getUser_id(), session.getAccess_status())) {
+		if(!allowedUserSessionService.userCanVoteSession(session.getSession_id(), voteReq.getUser_id(), session.getAccess_status())) {
 			throw new DataIntegratyViolationException("USER_ID - NOT_PERMITED");
 		}
 		voteReq.setVoted_in(date);
@@ -42,6 +42,7 @@ public class VoteService {
 		return repository.save(voteReq.build()).toResponse();
 		
 	}
+	
 	
 	public VoteId createVoteId(Long user_id, Long session_id) {
 		userService.findById(user_id);

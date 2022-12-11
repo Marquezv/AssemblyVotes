@@ -90,7 +90,14 @@ public class SessionService {
 	public List<SessionResponseDTO> findAllUserCanVote(Long user_id){
 		userService.findById(user_id);
 		return findAll().stream()
-				.filter(session -> allowedUserSessionService.userCanVote(session.getSession_id(), user_id, session.getAccess_status()))
+				.filter(session -> allowedUserSessionService.userCanVoteSession(session.getSession_id(), user_id, session.getAccess_status()))
+				.toList();		
+	}
+	
+	public List<SessionResponseDTO> findAllSurvey(Long survey_id){
+		surveyService.findById(survey_id);
+		return findAll().stream()
+				.filter(session -> session.getSurvey_id().equals(survey_id))
 				.toList();		
 	}
 	

@@ -43,7 +43,7 @@ public class AllowedUserSessionService {
 		repository.save(allowedUserSession);
 	}
 
-	public boolean userCanVote(Long session_id, Long user_id, AccessStatus accessStatus) {
+	public boolean userCanVoteSession(Long session_id, Long user_id, AccessStatus accessStatus) {
 		Optional<AllowedUserSession> allowedUserSession = repository.findBySessionUser(session_id, user_id);
 		if(allowedUserSession.isEmpty() && accessStatus.equals(AccessStatus.PRIVATE) ) {
 			return false;

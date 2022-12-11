@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vmarquezv.dev.assemblyVotes.domain.request.SessionRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
+import com.vmarquezv.dev.assemblyVotes.service.AllowedUserSessionService;
 import com.vmarquezv.dev.assemblyVotes.service.SessionService;
 
 @RestController
@@ -27,12 +28,17 @@ public class SessionResource {
 
 	private static final String SESSION_ID = "/{id}";
 	
-	private static final String USER_ID = "/user/{user_id}";
+	private static final String USER_ID = "/users/{user_id}";
+	
+	private static final String SURVEY_ID = "/surveys/{survey_id}";
 	
 	private static final String ADDUSERSESSION = "/add";
 	
 	@Autowired
 	SessionService service;
+	
+	@Autowired
+	AllowedUserSessionService allowedUserSessionService;
 	
 	@PostMapping
 	public ResponseEntity<SessionResponseDTO> insert(@RequestBody SessionRequestDTO sessionRequestDTO) throws Exception {
@@ -61,13 +67,21 @@ public class SessionResource {
 				.map(session -> addLink(session)).collect(Collectors.toList())));
 	}
 	
+	@GetMapping(value = SURVEY_ID)
+	public ResponseEntity<CollectionModel<SessionResponseDTO>> findAllSurvey(@PathVariable Long survey_id) {
+		
+		return ResponseEntity.ok().body(toCollectionModelList(service.findAllSurvey(survey_id).stream()
+				.map(session -> addLink(session)).collect(Collectors.toList())));
+	}
+	
+	
 	@GetMapping(value = SESSION_ID)
 	public ResponseEntity<SessionResponseDTO> findById(@PathVariable Long id){
-		System.out.println(service.findById(id));
 		SessionResponseDTO res = service.findById(id);
-		
 		return ResponseEntity.ok().body(addLink(res));
 	}
+	
+	
 	
 	private SessionResponseDTO addLink(SessionResponseDTO res) {
 		res.add(WebMvcLinkBuilder
@@ -80,12 +94,11 @@ public class SessionResource {
 		
 		res.getUserResponse().add(WebMvcLinkBuilder
 				.linkTo(WebMvcLinkBuilder.methodOn(UserResource.class)
-						.findById(res.getUser_id())).withRel("user"));
+						.findById(res.getUser_id())).withRel("users"));
 		
 		res.getSurveyResponse().add(WebMvcLinkBuilder
 				.linkTo(WebMvcLinkBuilder.methodOn(SurveyResource.class)
-						.findById(res.getSurvey_id())).withRel("survey"));
-		
+						.findById(res.getSurvey_id())).withRel("surveys"));
 		return res;
 	}
 	

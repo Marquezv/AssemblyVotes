@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vmarquezv.dev.assemblyVotes.domain.request.SurveyRequestDTO;
-import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.service.SurveyService;
 
@@ -38,14 +37,40 @@ public class SurveyResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<SurveyResponseDTO>> findAll() {
-		return ResponseEntity.ok().body(service.findAll());
+	public ResponseEntity<CollectionModel<SurveyResponseDTO>> findAll() {
+		
+		List<SurveyResponseDTO> surveyResponseDTOList = service.findAll().stream()
+				.map(survey -> service.getSurveyResponse(survey.getSurvey_id()))
+				.map(survey -> addLink(survey)).toList();
+		
+		return ResponseEntity.ok().body(toCollectionModelList(surveyResponseDTOList));
 	}
 	
 	@GetMapping(value = ID)
 	public ResponseEntity<SurveyResponseDTO> findById(@PathVariable Long id) {
-		return ResponseEntity.ok().body(service.findById(id).toResponse());
+		return ResponseEntity.ok().body(addLink(service.getSurveyResponse(id)));
 	}
 
-
+	private SurveyResponseDTO addLink(SurveyResponseDTO res) {
+		res.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(SurveyResource.class)
+						.findById(res.getSurvey_id())).withSelfRel());
+		
+		res.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(SurveyResource.class)
+						.findAll()).withRel(IanaLinkRelations.COLLECTION));
+		
+		res.getUserResponse().add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(UserResource.class)
+						.findById(res.getUser_id())).withRel("users"));
+		
+		res.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(SessionResource.class)
+						.findAllSurvey(res.getSurvey_id())).withRel(IanaLinkRelations.COLLECTION));
+		return res;
+	}
+	
+	public CollectionModel<SurveyResponseDTO> toCollectionModelList(List<SurveyResponseDTO> surveyResponseDTO) {
+		return CollectionModel.of(surveyResponseDTO);
+	}
 }

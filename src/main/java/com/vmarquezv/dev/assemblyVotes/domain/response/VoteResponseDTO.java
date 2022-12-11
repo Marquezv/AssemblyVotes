@@ -2,19 +2,23 @@ package com.vmarquezv.dev.assemblyVotes.domain.response;
 
 import java.time.LocalDateTime;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.commons.VoteId;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-public class VoteResponseDTO {
+public class VoteResponseDTO extends RepresentationModel<VoteResponseDTO>{
 	
 	private VoteId vote_id;
 	

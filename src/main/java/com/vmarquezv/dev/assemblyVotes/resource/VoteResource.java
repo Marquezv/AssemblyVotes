@@ -30,4 +30,5 @@ public class VoteResource {
 		
 		return ResponseEntity.created(uri).build();
 	}
+	
 }

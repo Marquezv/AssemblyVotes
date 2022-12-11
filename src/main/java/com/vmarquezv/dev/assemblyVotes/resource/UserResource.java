@@ -47,7 +47,7 @@ public class UserResource {
 	@GetMapping
 	public ResponseEntity<CollectionModel<UserResponseDTO>> findAll(){
 		return ResponseEntity.ok().body(toCollectionModelList(service.findAll().stream()
-				.map(session -> addLink(session)).toList()));
+				.map(user -> addLink(user)).toList()));
 	}
 	
 	@GetMapping(value = ID)
@@ -67,7 +67,7 @@ public class UserResource {
 		return res;
 	}
 	
-	private CollectionModel<UserResponseDTO> toCollectionModelList(List<UserResponseDTO> sessionResponseDTO) {
-		return CollectionModel.of(sessionResponseDTO);
+	private CollectionModel<UserResponseDTO> toCollectionModelList(List<UserResponseDTO> userResponseDTO) {
+		return CollectionModel.of(userResponseDTO);
 	}
 }
