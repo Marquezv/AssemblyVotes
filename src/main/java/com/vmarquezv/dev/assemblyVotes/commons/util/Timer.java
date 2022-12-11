@@ -35,9 +35,10 @@ public class Timer {
 			if(checkService.hourState(session.getStarted_on())){
 				if(!checkService.hourState(session.getClosed_on())) {
 					session.setSession_status(SessionStatus.IN_PROGRESS);
+					sessionRepository.save(session);
 				}
+
 			}
-			sessionRepository.save(session);
 		}
 		
 	}
@@ -48,8 +49,8 @@ public class Timer {
 		for(Session session : sessionList) {
 			if(checkService.hourState(session.getClosed_on())){
 				session.setSession_status(SessionStatus.FINALIZED);
+				sessionRepository.save(session);
 			}
-			sessionRepository.save(session);
 		}
 		
 	}

@@ -2,8 +2,10 @@ package com.vmarquezv.dev.assemblyVotes.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,13 +44,23 @@ public class SessionResource {
 	
 	@GetMapping
 	public ResponseEntity<List<SessionResponseDTO>> findAll() {
-		return ResponseEntity.ok().body(service.findAll());
+		return ResponseEntity.ok().body(service.findAll().stream().map(session -> addLink(session)).collect(Collectors.toList()));
 	}
 	
 	@GetMapping(value = ID)
 	public ResponseEntity<SessionResponseDTO> findById(@PathVariable Long id){
 		System.out.println(service.findById(id));
-		return ResponseEntity.ok().body(service.findById(id));
+		SessionResponseDTO res = service.findById(id);
+		
+		return ResponseEntity.ok().body(addLink(res));
+	}
+	
+	private SessionResponseDTO addLink(SessionResponseDTO res) {
+		res.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(SessionResource.class)
+						.findById(res.getSession_id())).withSelfRel());
+			
+		return res;
 	}
 	
 }

@@ -3,7 +3,6 @@ package com.vmarquezv.dev.assemblyVotes.domain.response;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +21,6 @@ public class SurveyResponseDTO {
 	
 	private String description;
 
-	private SurveyStatus survey_status;	
-	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime created_on;
 	

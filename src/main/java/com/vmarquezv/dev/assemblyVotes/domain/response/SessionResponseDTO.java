@@ -3,20 +3,24 @@ package com.vmarquezv.dev.assemblyVotes.domain.response;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SessionResponseDTO {
+public class SessionResponseDTO extends RepresentationModel<SessionResponseDTO>{
 	
 	private Long session_id;
 	
@@ -46,4 +50,5 @@ public class SessionResponseDTO {
 	private SessionStatus session_status;
 	
 	private List<AllowedUserSessionResponseDTO> allowedUserSession;
+	
 }

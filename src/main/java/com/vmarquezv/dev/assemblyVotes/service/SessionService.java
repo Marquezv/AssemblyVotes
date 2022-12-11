@@ -72,7 +72,6 @@ public class SessionService {
 			throw new DataIntegratyViolationException("SESSION_ID - NOT_PERMITED_ADD_USER");
 		}
 		else if(checkService.hourState(session.getStarted_on())) {
-			
 			throw new DataIntegratyViolationException("SESSION_ID - HAS_BEEN_STARTED");
 		}
 		allowedUserSessionService.userRegisterCheck(session.getId(), user.getId());
@@ -93,6 +92,9 @@ public class SessionService {
 				.orElseThrow(
 						() -> new ObjectNotFoundException("SESSION_ID - NOT_FOUND")).toResponse();
 		res.setAllowedUserSession(allowedUserSessionService.findAllUserSession(id));
+		
+		
+		
 		return res;
 	}
 	

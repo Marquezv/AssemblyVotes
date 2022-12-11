@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Profile;
 
 import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
-import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.AllowedUserSession;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Session;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Survey;
@@ -44,15 +43,13 @@ public class LocalConfig {
 		LocalDateTime date = LocalDateTime.now();
 		LocalDateTime dateStart = LocalDateTime.of(2022,12,10,18,22,30);
 		LocalDateTime dateClose = LocalDateTime.of(2022,12,10,18,40,30);
-
-		
 		
 		User user1 = new User((long)1, "Vini", "109.691.830-90", date);
 		User user2 = new User((long)2, "Lua", "309.691.830-90", date);
 		userRepository.saveAll(List.of(user1,user2));
 		
-		Survey survey1 = new Survey((long)1, "Should we renovate the playground?", date, user1, SurveyStatus.OPPEND);
-		Survey survey2 = new Survey((long)2, "Shall we change the gutters?", date, user2, SurveyStatus.OPPEND);
+		Survey survey1 = new Survey((long)1, "Should we renovate the playground?", date, user1);
+		Survey survey2 = new Survey((long)2, "Shall we change the gutters?", date, user2);
 		surveyRepository.saveAll(List.of(survey1, survey2));
 		
 		Collection<User> allowed_users = new LinkedHashSet<User>();

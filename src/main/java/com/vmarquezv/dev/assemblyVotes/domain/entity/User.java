@@ -48,7 +48,4 @@ public class User {
 			return userRes;
 	}
 	
-//	public String setCPF(String cpf)  {
-//        return cpf.replaceAll("(\\\\\\\\d)(\\\\\\\\d)(\\\\\\\\d)", "$1.$2.$3-");
-//    }
 }

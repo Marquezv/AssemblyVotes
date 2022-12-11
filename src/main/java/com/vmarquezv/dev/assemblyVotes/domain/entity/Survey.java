@@ -2,7 +2,6 @@ package com.vmarquezv.dev.assemblyVotes.domain.entity;
 
 import java.time.LocalDateTime;
 
-import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
 
 import jakarta.persistence.Column;
@@ -44,16 +43,13 @@ public class Survey {
     @JoinColumn(name = "USER_ID")
 	private User user;
 	
-	@Column(name = "SURVEY_STATUS")
-	private SurveyStatus survey_status;
 
 	public SurveyResponseDTO toResponse() {
 		SurveyResponseDTO surveyRes = new SurveyResponseDTO()
 				.setDescription(this.description)
 				.setCreated_on(this.creation_on)
 				.setUser_id(this.user.getId())
-				.setSurvey_id(this.id)
-				.setSurvey_status(this.survey_status);
+				.setSurvey_id(this.id);
 		return surveyRes;
 	}
 }

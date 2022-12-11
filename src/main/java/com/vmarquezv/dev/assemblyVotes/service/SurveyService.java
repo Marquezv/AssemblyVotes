@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vmarquezv.dev.assemblyVotes.commons.status.SurveyStatus;
 import com.vmarquezv.dev.assemblyVotes.domain.entity.Survey;
 import com.vmarquezv.dev.assemblyVotes.domain.request.SurveyRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
@@ -28,8 +27,7 @@ public class SurveyService {
 		LocalDateTime date = LocalDateTime.now();
 		surveyReq.setCreated_on(date);
 		
-		surveyReq.setUser(userService.findById(surveyReq.getUser_id()));
-		surveyReq.setSurvey_status(SurveyStatus.OPPEND);
+		surveyReq.setUser(userService.findByIdResponse(surveyReq.getUser_id()));
 		return repository.save(surveyReq.build()).toResponse();
 	}
 	
