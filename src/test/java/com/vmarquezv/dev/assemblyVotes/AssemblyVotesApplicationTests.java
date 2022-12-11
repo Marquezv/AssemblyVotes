@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class AssemblyVotesApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		AssemblyVotesApplication.main(new String[] {});
 	}
 
 }
