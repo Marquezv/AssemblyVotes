@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,11 +45,23 @@ public class UserResource {
 	
 	@GetMapping
 	public ResponseEntity<List<UserResponseDTO>> findAll(){
-		return ResponseEntity.ok().body(service.findAll());
+		return ResponseEntity.ok().body(service.findAll().stream().map(session -> addLink(session)).toList());
 	}
 	
 	@GetMapping(value = ID)
 	public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
-		return ResponseEntity.ok().body(service.findById(id).toResponse());
+		return ResponseEntity.ok().body(addLink(service.findById(id).toResponse()));
+	}
+	
+	private UserResponseDTO addLink(UserResponseDTO res) {
+		res.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(UserResource.class)
+						.findById(res.getUser_id())).withSelfRel());
+		
+		res.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(UserResource.class)
+						.findAll()).withRel(IanaLinkRelations.COLLECTION));
+		
+		return res;
 	}
 }
