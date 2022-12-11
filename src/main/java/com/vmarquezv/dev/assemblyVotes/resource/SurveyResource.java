@@ -4,6 +4,9 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vmarquezv.dev.assemblyVotes.domain.request.SurveyRequestDTO;
+import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.service.SurveyService;
 
@@ -42,4 +46,6 @@ public class SurveyResource {
 	public ResponseEntity<SurveyResponseDTO> findById(@PathVariable Long id) {
 		return ResponseEntity.ok().body(service.findById(id).toResponse());
 	}
+
+
 }

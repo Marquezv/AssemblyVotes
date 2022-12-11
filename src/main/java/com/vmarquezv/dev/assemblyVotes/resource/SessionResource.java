@@ -89,7 +89,7 @@ public class SessionResource {
 		return res;
 	}
 	
-	public CollectionModel<SessionResponseDTO> toCollectionModelList(List<SessionResponseDTO> sessionResponseDTO) {
+	private CollectionModel<SessionResponseDTO> toCollectionModelList(List<SessionResponseDTO> sessionResponseDTO) {
 		return CollectionModel.of(sessionResponseDTO);
 	}
 }
