@@ -41,7 +41,7 @@ public class VoteService {
 	}
 	
 	public VoteId createVoteId(Long user_id, Long session_id) {
-		userService.findByIdResponse(user_id);
+		userService.findById(user_id);
 		sessionService.findById(session_id);
 		VoteId voteId = new VoteId(user_id, session_id);
 		

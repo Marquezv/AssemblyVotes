@@ -81,19 +81,20 @@ public class SessionService {
 	}
 	
 	public List<SessionResponseDTO> findAll() {
-		return repository.findAll().stream()
+		return 	repository.findAll().stream()
 				.map(session -> session.toResponse())
 				.map(session -> findById(session.getSession_id()))
 				.collect(Collectors.toList());
 	}
+	
 	
 	public SessionResponseDTO findById(Long id) {
 		SessionResponseDTO res = repository.findById(id)
 				.orElseThrow(
 						() -> new ObjectNotFoundException("SESSION_ID - NOT_FOUND")).toResponse();
 		res.setAllowedUserSession(allowedUserSessionService.findAllUserSession(id));
-		
-		
+		res.setUserResponse(userService.findById(res.getUser_id()).toResponse());
+		res.setSurveyResponse(surveyService.findById(res.getSurvey_id()).toResponse());
 		
 		return res;
 	}

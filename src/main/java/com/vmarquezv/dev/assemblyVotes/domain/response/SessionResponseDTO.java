@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vmarquezv.dev.assemblyVotes.commons.status.AccessStatus;
 import com.vmarquezv.dev.assemblyVotes.commons.status.SessionStatus;
 
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+@Relation(collectionRelation = "sessions")
 @Accessors(chain = true)
 @Getter
 @Setter
@@ -24,9 +27,15 @@ public class SessionResponseDTO extends RepresentationModel<SessionResponseDTO>{
 	
 	private Long session_id;
 	
+	@JsonIgnore
 	private Long user_id;
 	
+	private UserResponseDTO userResponse;
+	
+	@JsonIgnore
 	private Long survey_id;
+	
+	private SurveyResponseDTO surveyResponse;
 	
 	private String survey_description;
 	

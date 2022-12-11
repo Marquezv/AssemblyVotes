@@ -27,7 +27,7 @@ public class SurveyService {
 		LocalDateTime date = LocalDateTime.now();
 		surveyReq.setCreated_on(date);
 		
-		surveyReq.setUser(userService.findByIdResponse(surveyReq.getUser_id()));
+		surveyReq.setUser(userService.findById(surveyReq.getUser_id()));
 		return repository.save(surveyReq.build()).toResponse();
 	}
 	
