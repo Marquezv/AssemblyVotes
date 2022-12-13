@@ -71,7 +71,7 @@ mvn spring-boot:run
 # Routes ⛕ - Let's start
 
 ## First [create a user](#Create-User)
-## Ask your [create a survey](#Create-Survey)(yes and no)
+## Ask your  question for the [survey](#Create-Survey)(yes and no)
 ## [Create a session](#Create-Session) to see the opinion of other users
 ## finally, the most important moment [vote](#VOTE)
 # USERS
