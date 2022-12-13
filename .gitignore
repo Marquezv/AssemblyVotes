@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+bin
 
 ### IntelliJ IDEA ###
 .idea
@@ -28,6 +29,10 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+
+### Eclipse ###
+.metadata
 
 ### VS Code ###
 .vscode/
