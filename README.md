@@ -41,7 +41,7 @@ mvn spring-boot:run
     - Main route: http://localhost:8081/api/v1/
     - Port: 8081
     - H2DB: http://localhost:8081/api/v1/h2-console
-        - use: SYS_ADMIN
+        - use: sa
         - password: [none]
     - Testing persistense models with LocalConfig(assemblyVotes/config/LocalConfig)
 
