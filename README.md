@@ -15,8 +15,9 @@ Assembly Votes is an API under development, focused on facilitating the creation
 - Easy creation of users and surveys
 - easy-to-use API
 
-
-
+## In constrution :construction:
+- SessionStatus - Waiting ( Session waiting all users for start votation)
+- Improvements to the log
 
 
 ## Start Server 🌐
@@ -45,6 +46,13 @@ mvn spring-boot:run
         - password: [none]
     - Testing persistense models with LocalConfig(assemblyVotes/config/LocalConfig)
 
+- Server start with prod config (application-prod.properties)
+ - Main route: http://localhost:8080/api/v1/
+    - Port: 8080
+    - H2DB: http://localhost:8081/api/v1/h2-console
+        - use: sa
+        - password: [none]
+    - Data pesistence in H2 
 
 # Project 🚧
 ## This project has the MVC pattern, having controllers, services and repositories following the demand of the object
