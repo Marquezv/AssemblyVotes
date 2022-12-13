@@ -49,7 +49,7 @@ mvn spring-boot:run
 - Server start with prod config (application-prod.properties)
  - Main route: http://localhost:8080/api/v1/
     - Port: 8080
-    - H2DB: http://localhost:8081/api/v1/h2-console
+    - H2DB: http://localhost:8080/api/v1/h2-console
         - use: sa
         - password: [none]
     - Data pesistence in H2 
