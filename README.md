@@ -18,10 +18,7 @@ Assembly Votes is an API under development, focused on facilitating the creation
 ## In constrution :construction:
 - SessionStatus - Waiting ( Session waiting all users for start votation)
 - Improvements to the log
-
-### References
-https://www.amazon.com.br/Desenvolvimento-Real-Software-projetos-fundamentos/dp/6555202017/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=21KH77H1NY4S6&keywords=desenvolvimento+java&qid=1671036453&sprefix=desenvolvimento+java%2Caps%2C208&sr=8-1
-
+- 
 ## Start Server 🌐
 
 ### Download 📥
