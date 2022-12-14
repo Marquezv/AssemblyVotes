@@ -1,13 +1,11 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +21,7 @@ import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
 import com.vmarquezv.dev.assemblyVotes.domain.request.SessionRequestDTO;
 import com.vmarquezv.dev.assemblyVotes.domain.response.SessionResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationException;
+import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.SessionRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,6 +49,8 @@ public class SessionServiceTest {
 	
 	private SessionRequestDTO sessionReqEr;
 	
+	private Optional<Session> optionalSession;
+	
 	@Mock
 	private AllowedUserSessionService allowedUSService;
 	
@@ -72,7 +73,6 @@ public class SessionServiceTest {
 	void whenCreateThenReturnSuccess() {
 		when(repository.save(any(Session.class))).thenReturn(session);
 		sessionRes = service.insert(sessionReq);
-		assertNotNull(sessionRes);
 		assertEquals(sessionRes.getSession_id(), sessionReq.getSession_id());
 		assertEquals(sessionRes.getUser_id(), sessionReq.getUser_id());
 		assertEquals(sessionRes.getSurvey_id(), sessionReq.getSurvey_id());
@@ -90,6 +90,18 @@ public class SessionServiceTest {
 			assertEquals(err.getMessage(), "SESSION - INVALID DATE");
 		}
 	}
+	
+	@Test
+	void whenFindByIdThenReturnAnObjectNotFoundException() {
+		
+		try {
+			service.findById(SESSION_ID);
+		} catch(Exception err) {
+			assertEquals(err.getClass(), ObjectNotFoundException.class);
+			assertEquals(err.getMessage(), "SESSION_ID - NOT_FOUND");
+		}
+	}
+
 	
 	private void startUser() {
 		service = new SessionService(surveyService, allowedUSService, userService, repository);
