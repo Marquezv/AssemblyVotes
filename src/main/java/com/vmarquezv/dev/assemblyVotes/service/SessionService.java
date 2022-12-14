@@ -20,24 +20,24 @@ import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.exceptions.StatusArgumentExceptionException;
 import com.vmarquezv.dev.assemblyVotes.repository.SessionRepository;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class SessionService {
+
+	private final SurveyService surveyService;
 	
-	@Autowired
-	UserService userService;
+	private final AllowedUserSessionService allowedUserSessionService;
 	
-	@Autowired
-	SurveyService surveyService;
-	
-	@Autowired
-	AllowedUserSessionService allowedUserSessionService;
+	private final UserService userService;
 	
 	@Autowired
 	CheckService checkService;
 	
-	@Autowired
-	SessionRepository repository;
+	
+	private final SessionRepository repository;
 	
 	public SessionResponseDTO  insert(SessionRequestDTO sessionReq) {
 		LocalDateTime date = LocalDateTime.now();
