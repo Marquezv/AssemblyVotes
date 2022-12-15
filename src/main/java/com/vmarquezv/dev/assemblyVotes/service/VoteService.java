@@ -55,7 +55,6 @@ public class VoteService {
 	private void findByUserSession(Long user_id, Long session_id) {
 		Optional<Vote> voteOptional = repository.findByUserSession(user_id, session_id);
 		if(voteOptional.isPresent()) {
-			System.out.println(voteOptional);
 			throw new DataIntegratyViolationException("USER_ID - " + user_id + " has voted in that SESSION_ID - " + session_id);
 		}
 	}

@@ -24,17 +24,13 @@ public class Timer {
 	CheckService checkService;
 	
 	@Scheduled(cron = "* * * ? * *")
-	public void log() {
-		sessionRepository.findAll().forEach(session -> log.info("[SESSION_ID : "+ session.getId() + " ] -" + "- [STATUS : " + session.getSession_status()  +" ]"));
-	}
-
-	@Scheduled(cron = "* * * ? * *")
     public void setSessionStarted(){
 		List<Session> sessionList = sessionRepository.findAll();
 		for(Session session : sessionList) {
 			if(checkService.hourState(session.getStarted_on())){
-				if(!checkService.hourState(session.getClosed_on())) {
+				if(!checkService.hourState(session.getClosed_on()) && session.getSession_status() != SessionStatus.IN_PROGRESS) {
 					session.setSession_status(SessionStatus.IN_PROGRESS);
+					log.info("[SESSION_ID : "+ session.getId() + " ] -" + "- [STATUS : " + SessionStatus.IN_PROGRESS  +" ]");
 					sessionRepository.save(session);
 				}
 
@@ -47,8 +43,9 @@ public class Timer {
     public void setSessionClosed(){
 		List<Session> sessionList = sessionRepository.findAll();
 		for(Session session : sessionList) {
-			if(checkService.hourState(session.getClosed_on())){
+			if(checkService.hourState(session.getClosed_on()) && session.getSession_status() != SessionStatus.FINALIZED){
 				session.setSession_status(SessionStatus.FINALIZED);
+				log.info("[SESSION_ID : "+ session.getId() + " ] -" + "- [STATUS : " + SessionStatus.FINALIZED  +" ]");
 				sessionRepository.save(session);
 			}
 		}

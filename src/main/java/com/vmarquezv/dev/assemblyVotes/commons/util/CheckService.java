@@ -27,7 +27,6 @@ public class CheckService {
 	}
 	
 	
-	@SuppressWarnings("unused")
 	public boolean accessStatus(int accessStatus) {
 		switch (accessStatus){
 		case 1: {

@@ -21,11 +21,13 @@ import com.vmarquezv.dev.assemblyVotes.exceptions.StatusArgumentExceptionExcepti
 import com.vmarquezv.dev.assemblyVotes.repository.SessionRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SessionService {
+	
 
 	private final SurveyService surveyService;
 	
@@ -48,6 +50,7 @@ public class SessionService {
 				sessionReq.getStarted_on().isBefore(date) ||
 				sessionReq.getClosed_on().isBefore(sessionReq.getStarted_on()) ||
 				sessionReq.getClosed_on().isBefore(date)) {
+			log.error("[ SESSION|SERVICE ] -" + "- [ FUNCTION : INSERT ]" + "- [ STATUS : ERROR ]");
 			throw new DataIntegratyViolationException("SESSION - INVALID DATE");
 		}
 	
@@ -58,6 +61,7 @@ public class SessionService {
 		sessionReq.setDown_votes(0);
 		sessionReq.setSession_status(SessionStatus.NONE);
 		sessionReq.setCreated_on(date);
+		log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]" + "- [ STATUS : SUCCESS ]");
 		return repository.save(sessionReq.build()).toResponse();
 	}
 	
@@ -77,6 +81,7 @@ public class SessionService {
 		allowedUserSessionService.userRegisterCheck(session.getId(), user.getId());
 		allowedUserSessionService.addUserSession(session, user);
 
+		log.info("[ SESSION|SERVICE ] -"  + "- [ SESSION_ID : "+ session.getId() +" ]"  +"- [ FUNCTION : ADDUSERSESSION ]");
 		return findById(sessionReq.getSession_id());
 	}
 	
@@ -116,7 +121,8 @@ public class SessionService {
 		Session session = repository.findById(session_id).orElseThrow(
 					() -> new ObjectNotFoundException("SESSION_ID - NOT_FOUND"));
 		
-		if(checkService.hourState(session.getClosed_on()) || session.getSession_status().equals(SessionStatus.NONE)) {
+		if(session.getSession_status().equals(SessionStatus.FINALIZED) || session.getSession_status().equals(SessionStatus.NONE)) {
+			log.error("[ SESSION|SERVICE ] -"  + "- [ SESSION_ID : "+ session.getId() +" ]"  +"- [ FUNCTION : VOTINGSESSION ]");
 			throw new DataIntegratyViolationException("SESSION_ID - NOT_IN_PROGRESS");
 		}
 		
@@ -128,12 +134,14 @@ public class SessionService {
 			session.setUp_votes(upVotes + 1);
 			session.setAmount_votes(amountVotes + 1);
 			repository.save(session);
+			log.info("[ SESSION|SERVICE ] -"  + "- [ SESSION_ID : "+ session.getId() +" ]"  +"- [ FUNCTION : VOTINGSESSION ]");
 			break;
 		}
 		case 2: {
 			session.setDown_votes(downVotes + 1);
 			session.setAmount_votes(amountVotes + 1);
 			repository.save(session);
+			log.info("[ SESSION|SERVICE ] -"  + "- [ SESSION_ID : "+ session.getId() +" ]"  +"- [ FUNCTION : VOTINGSESSION ]");
 			break;
 		}
 		default:

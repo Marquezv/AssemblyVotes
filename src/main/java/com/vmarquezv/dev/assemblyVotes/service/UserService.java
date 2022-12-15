@@ -15,6 +15,9 @@ import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationExceptio
 import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UserService {
 	
@@ -23,12 +26,19 @@ public class UserService {
 	
 	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
-		LocalDateTime date = LocalDateTime.now();
-		String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
+		try {
+			LocalDateTime date = LocalDateTime.now();
+			String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
+			
+			userReq.setCpf(cpfNumbers);
+			userReq.setCreated_on(date);
+			findByCpf(userReq);
+			
+		}catch (Exception err) {
+			log.error("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
+			throw new DataIntegratyViolationException("CPF - IN USE");
+		}
 		
-		userReq.setCpf(cpfNumbers);
-		userReq.setCreated_on(date);
-		findByCpf(userReq);
 		return repository.save(userReq.build()).toResponse();
 	}
 	
@@ -48,6 +58,7 @@ public class UserService {
 	private void findByCpf(UserRequestDTO userReq) {
 		Optional<User> user = repository.findByCpf(userReq.getCpf());
 		if(user.isPresent()) {
+			log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : FINDBYCPF ]");
 			throw new DataIntegratyViolationException("CPF - IN USE");
 		}
 		

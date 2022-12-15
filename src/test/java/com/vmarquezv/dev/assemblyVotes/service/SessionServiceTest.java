@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,13 +42,11 @@ public class SessionServiceTest {
 	
 	private Session session;
 	
-	private SessionRequestDTO sessionReq;
-
 	private SessionResponseDTO sessionRes;
+
+	private SessionRequestDTO sessionReq;
 	
 	private SessionRequestDTO sessionReqEr;
-	
-	private Optional<Session> optionalSession;
 	
 	@Mock
 	private AllowedUserSessionService allowedUSService;
@@ -72,6 +69,7 @@ public class SessionServiceTest {
 	@Test
 	void whenCreateThenReturnSuccess() {
 		when(repository.save(any(Session.class))).thenReturn(session);
+
 		sessionRes = service.insert(sessionReq);
 		assertEquals(sessionRes.getSession_id(), sessionReq.getSession_id());
 		assertEquals(sessionRes.getUser_id(), sessionReq.getUser_id());
@@ -93,7 +91,6 @@ public class SessionServiceTest {
 	
 	@Test
 	void whenFindByIdThenReturnAnObjectNotFoundException() {
-		
 		try {
 			service.findById(SESSION_ID);
 		} catch(Exception err) {
@@ -101,7 +98,6 @@ public class SessionServiceTest {
 			assertEquals(err.getMessage(), "SESSION_ID - NOT_FOUND");
 		}
 	}
-
 	
 	private void startUser() {
 		service = new SessionService(surveyService, allowedUSService, userService, repository);
@@ -112,6 +108,7 @@ public class SessionServiceTest {
 		survey = new Survey()
 				.setId(SURVEY_ID);
 		sessionReq = new SessionRequestDTO()
+				.setSession_id(SESSION_ID)
 				.setUser_id(USER_ID)
 				.setSurvey_id(SESSION_ID)
 				.setStarted_on(STARTED_ON)
@@ -125,7 +122,9 @@ public class SessionServiceTest {
 				.setClosed_on(CLOSED_ON)
 				.setAccess_status(AccessStatus.PUBLIC);
 		
+		
 		session = new Session()
+				.setId(SESSION_ID)
 				.setUser(user)
 				.setSurvey(survey)
 				.setStarted_on(STARTED_ON)
