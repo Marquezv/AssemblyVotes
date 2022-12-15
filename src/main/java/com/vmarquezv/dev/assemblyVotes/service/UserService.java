@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +14,24 @@ import com.vmarquezv.dev.assemblyVotes.exceptions.DataIntegratyViolationExceptio
 import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserService {
 	
-	@Autowired
-	UserRepository repository;
+
+	private final UserRepository repository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		try {
 			String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
 			userReq.setPassword(passwordEncoder.encode(userReq.getPassword()));
+			
 			userReq.setCpf(cpfNumbers);
 			findByCpf(userReq);
 			log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
