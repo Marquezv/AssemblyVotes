@@ -25,7 +25,7 @@ public class UserRequestDTO {
 	private String cpf;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private LocalDateTime created_on = LocalDateTime.now();
+	private LocalDateTime created_on;
 	
 	public User build() {
 		User user = new User()
