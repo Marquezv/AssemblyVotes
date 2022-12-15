@@ -20,7 +20,7 @@ public class SurveyRequestDTO {
 	private String description;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private LocalDateTime created_on;
+	private LocalDateTime created_on = LocalDateTime.now();
 	
 	private Long user_id;
 	

@@ -44,8 +44,9 @@ public class LocalConfig {
 		LocalDateTime dateStart = LocalDateTime.of(2022,12,10,18,22,30);
 		LocalDateTime dateClose = LocalDateTime.of(2022,12,10,18,40,30);
 		
-		User user1 = new User((long)1, "Vini", "109.691.830-90", date);
-		User user2 = new User((long)2, "Lua", "309.691.830-90", date);
+		
+		User user1 = new User((long)1, "Vini", "123","109.691.830-90", date);
+		User user2 = new User((long)2, "Lua", "123", "309.691.830-90", date);
 		userRepository.saveAll(List.of(user1,user2));
 		
 		Survey survey1 = new Survey((long)1, "Should we renovate the playground?", date, user1);

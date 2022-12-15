@@ -19,17 +19,18 @@ public class UserRequestDTO {
 	
 	private String username;
 	
+	private String password;
+	
 	@Cpf
 	private String cpf;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private LocalDateTime created_on;
-	
-	private User user;
+	private LocalDateTime created_on = LocalDateTime.now();
 	
 	public User build() {
 		User user = new User()
 				.setUsername(this.username)
+				.setPassword(password)
 				.setCpf(this.cpf)
 				.setCreated_on(this.created_on);
 			return user;

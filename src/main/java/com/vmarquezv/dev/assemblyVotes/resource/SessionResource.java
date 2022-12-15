@@ -26,12 +26,10 @@ import com.vmarquezv.dev.assemblyVotes.service.SessionService;
 @RequestMapping(value = "/sessions")
 public class SessionResource {
 
+	
 	private static final String SESSION_ID = "/{id}";
-	
 	private static final String USER_ID = "/users/{user_id}";
-	
 	private static final String SURVEY_ID = "/surveys/{survey_id}";
-	
 	private static final String ADDUSERSESSION = "/add";
 	
 	@Autowired
@@ -44,6 +42,7 @@ public class SessionResource {
 	public ResponseEntity<SessionResponseDTO> insert(@RequestBody SessionRequestDTO sessionRequestDTO) throws Exception {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(SESSION_ID)
 				.buildAndExpand(service.insert(sessionRequestDTO).getSession_id()).toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
 	

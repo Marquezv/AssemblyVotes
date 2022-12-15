@@ -1,11 +1,11 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vmarquezv.dev.assemblyVotes.domain.entity.User;
@@ -24,14 +24,14 @@ public class UserService {
 	@Autowired
 	UserRepository repository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		try {
-			LocalDateTime date = LocalDateTime.now();
 			String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
-			
+			userReq.setPassword(passwordEncoder.encode(userReq.getPassword()));
 			userReq.setCpf(cpfNumbers);
-			userReq.setCreated_on(date);
 			findByCpf(userReq);
 			log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 		}catch (Exception err) {
@@ -60,5 +60,12 @@ public class UserService {
 			throw new DataIntegratyViolationException("CPF - IN USE");
 		}
 		
+	}
+	
+	public void validateUser(Long user_id, String password) {
+		String user_password = findById(user_id).getPassword();
+		if(!passwordEncoder.matches(password, user_password)) {
+			throw new DataIntegratyViolationException("USER_ID - NOT_PERMITED");
+		}
 	}
 }

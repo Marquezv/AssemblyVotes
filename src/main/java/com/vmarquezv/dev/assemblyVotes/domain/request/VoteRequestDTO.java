@@ -21,10 +21,12 @@ public class VoteRequestDTO {
 	private Long session_id;
 	private Long user_id;
 	
+	private String password;
+	
 	private VoteStatus vote_status;
 
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private LocalDateTime voted_in;
+	private LocalDateTime voted_in = LocalDateTime.now();
 	
 	@JsonIgnore
 	private VoteId voteId;

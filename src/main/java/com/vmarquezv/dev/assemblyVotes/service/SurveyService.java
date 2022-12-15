@@ -1,6 +1,5 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,9 +25,6 @@ public class SurveyService {
 	SurveyRepository repository;
 	
 	public SurveyResponseDTO insert(SurveyRequestDTO surveyReq) {
-		
-		LocalDateTime date = LocalDateTime.now();
-		surveyReq.setCreated_on(date);
 		
 		surveyReq.setUser(userService.findById(surveyReq.getUser_id()));
 		log.info("[ SURVEY|SERVICE ] -" + "- [ FUNCTION : INSERT ]");

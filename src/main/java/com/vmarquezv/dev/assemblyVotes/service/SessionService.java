@@ -60,7 +60,6 @@ public class SessionService {
 		sessionReq.setUp_votes(0);
 		sessionReq.setDown_votes(0);
 		sessionReq.setSession_status(SessionStatus.NONE);
-		sessionReq.setCreated_on(date);
 		log.info("[ SESSION|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 		return repository.save(sessionReq.build()).toResponse();
 	}

@@ -35,6 +35,7 @@ public class VoteService {
 	public VoteResponseDTO insert(VoteRequestDTO voteReq) throws Exception {
 		LocalDateTime date = LocalDateTime.now();
 		SessionResponseDTO session = sessionService.findById(voteReq.getSession_id());
+		userService.validateUser(voteReq.getUser_id(), voteReq.getPassword());
 		findByUserSession(voteReq.getUser_id(), voteReq.getSession_id());
 		if(!allowedUserSessionService.userCanVoteSession(session.getSession_id(), voteReq.getUser_id(), session.getAccess_status())) {
 			log.error("[ VOTE|SERVICE ] -" +"- [ FUNCTION : INSERT ]" + "- [ SESSION_ID : "+ session.getSession_id() +" ]" + "- [ USER_ID : "+ session.getUser_id() +" ]");
@@ -64,5 +65,7 @@ public class VoteService {
 			throw new DataIntegratyViolationException("USER_ID - " + user_id + " has voted in that SESSION_ID - " + session_id);
 		}
 	}
+	
+	
 }
 
