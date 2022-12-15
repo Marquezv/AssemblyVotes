@@ -50,7 +50,7 @@ public class SessionService {
 				sessionReq.getStarted_on().isBefore(date) ||
 				sessionReq.getClosed_on().isBefore(sessionReq.getStarted_on()) ||
 				sessionReq.getClosed_on().isBefore(date)) {
-			log.error("[ SESSION|SERVICE ] -" + "- [ FUNCTION : INSERT ]" + "- [ STATUS : ERROR ]");
+			log.error("[ SESSION|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 			throw new DataIntegratyViolationException("SESSION - INVALID DATE");
 		}
 	
@@ -61,7 +61,7 @@ public class SessionService {
 		sessionReq.setDown_votes(0);
 		sessionReq.setSession_status(SessionStatus.NONE);
 		sessionReq.setCreated_on(date);
-		log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]" + "- [ STATUS : SUCCESS ]");
+		log.info("[ SESSION|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 		return repository.save(sessionReq.build()).toResponse();
 	}
 	
@@ -81,7 +81,7 @@ public class SessionService {
 		allowedUserSessionService.userRegisterCheck(session.getId(), user.getId());
 		allowedUserSessionService.addUserSession(session, user);
 
-		log.info("[ SESSION|SERVICE ] -"  + "- [ SESSION_ID : "+ session.getId() +" ]"  +"- [ FUNCTION : ADDUSERSESSION ]");
+		log.info("[ SESSION|SERVICE ] -" +"- [ FUNCTION : ADDUSERSESSION ]"+ "- [ SESSION_ID : "+ session.getId() +" ]");
 		return findById(sessionReq.getSession_id());
 	}
 	
@@ -122,7 +122,7 @@ public class SessionService {
 					() -> new ObjectNotFoundException("SESSION_ID - NOT_FOUND"));
 		
 		if(session.getSession_status().equals(SessionStatus.FINALIZED) || session.getSession_status().equals(SessionStatus.NONE)) {
-			log.error("[ SESSION|SERVICE ] -"  + "- [ SESSION_ID : "+ session.getId() +" ]"  +"- [ FUNCTION : VOTINGSESSION ]");
+			log.error("[ SESSION|SERVICE ] -" +"- [ FUNCTION : VOTINGSESSION ]"+ "- [ SESSION_ID : "+ session.getId() +" ]");
 			throw new DataIntegratyViolationException("SESSION_ID - NOT_IN_PROGRESS");
 		}
 		

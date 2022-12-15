@@ -33,9 +33,8 @@ public class UserService {
 			userReq.setCpf(cpfNumbers);
 			userReq.setCreated_on(date);
 			findByCpf(userReq);
-			
+			log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 		}catch (Exception err) {
-			log.error("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 			throw new DataIntegratyViolationException("CPF - IN USE");
 		}
 		
@@ -58,7 +57,6 @@ public class UserService {
 	private void findByCpf(UserRequestDTO userReq) {
 		Optional<User> user = repository.findByCpf(userReq.getCpf());
 		if(user.isPresent()) {
-			log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : FINDBYCPF ]");
 			throw new DataIntegratyViolationException("CPF - IN USE");
 		}
 		

@@ -30,7 +30,7 @@ public class Timer {
 			if(checkService.hourState(session.getStarted_on())){
 				if(!checkService.hourState(session.getClosed_on()) && session.getSession_status() != SessionStatus.IN_PROGRESS) {
 					session.setSession_status(SessionStatus.IN_PROGRESS);
-					log.info("[SESSION_ID : "+ session.getId() + " ] -" + "- [STATUS : " + SessionStatus.IN_PROGRESS  +" ]");
+					log.info("[ SESSION_ID : "+ session.getId() + " ] -" + "- [ STATUS : " + SessionStatus.IN_PROGRESS  +" ]");
 					sessionRepository.save(session);
 				}
 
@@ -45,7 +45,7 @@ public class Timer {
 		for(Session session : sessionList) {
 			if(checkService.hourState(session.getClosed_on()) && session.getSession_status() != SessionStatus.FINALIZED){
 				session.setSession_status(SessionStatus.FINALIZED);
-				log.info("[SESSION_ID : "+ session.getId() + " ] -" + "- [STATUS : " + SessionStatus.FINALIZED  +" ]");
+				log.info("[ SESSION_ID : "+ session.getId() + " ] -" + "- [ STATUS : " + SessionStatus.FINALIZED  +" ]");
 				sessionRepository.save(session);
 			}
 		}

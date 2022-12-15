@@ -13,6 +13,9 @@ import com.vmarquezv.dev.assemblyVotes.domain.response.SurveyResponseDTO;
 import com.vmarquezv.dev.assemblyVotes.exceptions.ObjectNotFoundException;
 import com.vmarquezv.dev.assemblyVotes.repository.SurveyRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class SurveyService {
 	
@@ -28,6 +31,7 @@ public class SurveyService {
 		surveyReq.setCreated_on(date);
 		
 		surveyReq.setUser(userService.findById(surveyReq.getUser_id()));
+		log.info("[ SURVEY|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 		return repository.save(surveyReq.build()).toResponse();
 	}
 	
