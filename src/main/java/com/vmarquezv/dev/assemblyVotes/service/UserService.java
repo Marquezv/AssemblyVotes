@@ -25,11 +25,13 @@ public class UserService {
 
 	private final UserRepository repository;
 	
+	
 	private final PasswordEncoder passwordEncoder;
 	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		try {
 			String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
+			System.out.println(userReq);
 			userReq.setPassword(passwordEncoder.encode(userReq.getPassword()));
 			
 			userReq.setCpf(cpfNumbers);
