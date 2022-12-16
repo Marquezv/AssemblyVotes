@@ -81,6 +81,7 @@ mvn spring-boot:run
 Insert new User with diferent and valid cpf
 
     "username" : "Lua",
+    "password" : "123",
     "cpf" : "140.726.100-20"
 
 
@@ -551,6 +552,7 @@ Find all sessions with this search
 | ------------- | ------------- |
 |POST           | /votes | VOID
     "user_id" : 1,
+    "password" : "123",
     "session_id" :3,
     "vote_status": 1
 
