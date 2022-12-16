@@ -1,5 +1,5 @@
 # Assembly Votes🗳️ - Deployed
-https://assemblyvotes-production.up.railway.app/api/v1/users
+https://assemblyvotes-production.up.railway.app/api/v1/
 
 ## API to creating voting session
 
