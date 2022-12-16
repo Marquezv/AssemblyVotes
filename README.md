@@ -6,7 +6,7 @@ https://assemblyvotes-production.up.railway.app/api/v1/
 ## Desenvolved with:
     - SpringBoot 3.0.0
     - Maven 3.8.6
-    - Java 18
+    - Java 17
 
 
 ## About
