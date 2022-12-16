@@ -1,5 +1,6 @@
 package com.vmarquezv.dev.assemblyVotes.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,12 +31,12 @@ public class UserService {
 	
 	public UserResponseDTO insert(UserRequestDTO userReq) throws Exception {
 		try {
+			LocalDateTime date = LocalDateTime.now();
 			String cpfNumbers = userReq.getCpf().replaceAll("\\D", "");
-			System.out.println(userReq);
 			userReq.setPassword(passwordEncoder.encode(userReq.getPassword()));
-			
 			userReq.setCpf(cpfNumbers);
 			findByCpf(userReq);
+			userReq.setCreated_on(date);
 			log.info("[ USER|SERVICE ] -" + "- [ FUNCTION : INSERT ]");
 		}catch (Exception err) {
 			throw new DataIntegratyViolationException("CPF - IN USE");
