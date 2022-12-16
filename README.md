@@ -48,12 +48,8 @@ mvn spring-boot:run
     - Testing persistense models with LocalConfig(assemblyVotes/config/LocalConfig)
 
 - Server start with prod config (application-prod.properties)
- - Main route: http://localhost:8080/api/v1/
-    - Port: 8080
-    - H2DB: http://localhost:8080/api/v1/h2-console
-        - use: sa
-        - password: [none]
-    - Data pesistence in H2 
+ - Main route: https://assemblyvotes-production.up.railway.app/api/v1/
+    - Configured with PostgreSQL from Railway
 
 # Project 🚧
 ## This project has the MVC pattern, having controllers, services and repositories following the demand of the object
@@ -562,4 +558,4 @@ Find all sessions with this search
  - https://www.baeldung.com/
  - https://www.amazon.com.br/Desenvolvimento-Real-Software-projetos-fundamentos/dp/6555202017/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=21KH77H1NY4S6&keywords=desenvolvimento+java&qid=1671036453&sprefix=desenvolvimento+java%2Caps%2C208&sr=8-1
  - https://reflectoring.io/
-
+ - https://docs.railway.app/
