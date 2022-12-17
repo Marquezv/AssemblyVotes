@@ -1,0 +1,3 @@
+DATABASE_URL=postgresql://postgres:nIkKj4f7jpZMmwwkZa90@containers-us-west-149.railway.app:7274/railway
+PGUSER=postgres
+PGPASSWORD=nIkKj4f7jpZMmwwkZa90
