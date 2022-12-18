@@ -1,4 +1,5 @@
 # Assembly Votes🗳️ - Deployed
+
 https://assemblyvotes-production.up.railway.app/api/v1/
 
 ## API to creating voting session
@@ -22,11 +23,11 @@ Assembly Votes is an API under development, focused on facilitating the creation
 - Study and implement AOP
  
 ## Start Server 🌐
-
+##### for run in local machine use local branch
 ### Download 📥
 
 ```sh
-git clone git@github.com:Marquezv/AssemblyVotes.git
+git clone git@github.com:Marquezv/AssemblyVotes.git -b local
 ```
 
 
