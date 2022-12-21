@@ -1,0 +1,25 @@
+spring:
+
+   application:
+       name: user-api
+       
+   datasource:
+       driver-class-name: org.postgresql.Driver
+       url: jdbc:postgresql://localhost:5432/user
+       username: user
+       password: pass
+  # JPA properties
+   jpa:
+       hibernate:
+       ddl-auto: update 
+       show-sql: true
+       database: postgresql
+       database-platform: org.hibernate.dialect.PostgreSQLDialect
+       open-in-view: false
+       generate-ddl: true   
+   
+   rabbitmq:
+      host: localhost
+      port: 5672
+      username: rabbitmq
+      password: rabbitmq

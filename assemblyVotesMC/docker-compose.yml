@@ -1,0 +1,26 @@
+services:
+   
+   db:
+     container_name: postgres
+     image: postgres
+     ports:
+        - 5432:5432
+     environment:
+         POSTGRES_DB: user
+         POSTGRES_USER: user
+         POSTGRES_PASSWORD: pass
+         
+
+         
+   rabbitmq:
+      image: rabbitmq:3.7.8-management
+      ports:
+         - 5672:5672
+         - 15672:15672
+      environment:
+         - RABBITMQ_DEFAULT_USER=rabbitmq
+         - RABBITMQ_DEFAULT_PASS=rabbitmq
+         
+         
+
+  

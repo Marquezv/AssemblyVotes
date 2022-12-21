@@ -92,7 +92,7 @@ public class SessionService {
 	}
 	
 	public List<SessionResponseDTO> findAllUserCanVote(Long user_id){
-		userService.findById(user_id);
+//		userService.findById(user_id);
 		return findAll().stream()
 				.filter(session -> allowedUserSessionService.userCanVoteSession(session.getSession_id(), user_id, session.getAccess_status()))
 				.toList();		
