@@ -232,7 +232,7 @@ Find all surveys -- Return
 ### Create Session
 | Method | Route | 
 | ------------- | ------------- |
-|POST           | /surveys | VOID
+|POST           | /sessions | VOID
 
 Setting the Session
 
@@ -242,10 +242,10 @@ Setting the Session
     "closed_on": "14/12/2022 10:50:00",
     "access_status": 2
 
-### FindBy SurveyID
+### FindBy Session
 | Method | Route | 
 | ------------- | ------------- |
-|GET            | /surveys/{ID} |
+|GET            | /sessions/{ID} |
 
 Find User with ID -- Return:
 
@@ -295,10 +295,10 @@ Find User with ID -- Return:
 
 
     
-### FindAll Surveys
+### FindAll Session
 | Method | Route | 
 | ------------- | ------------- |
-|GET            | /surveys |
+|GET            | /sessions |
 
 Find all users registered users -- Return
 
@@ -352,7 +352,7 @@ Find all users registered users -- Return
 ### FindAll UserCanVote
 | Method | Route | 
 | ------------- | ------------- |
-|GET            | /surveys/users/{ID} |
+|GET            | /sessions/users/{ID} |
 
 Finds the public and private sessions the user can vote in 
 
@@ -453,7 +453,7 @@ Finds the public and private sessions the user can vote in
 ### FindAll SessionSurvey
 | Method | Route | 
 | ------------- | ------------- |
-|GET            | /surveys/users/{ID} |
+|GET            | /sessions/surveys/{ID} |
 
 Find all sessions with this search
 
