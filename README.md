@@ -18,7 +18,6 @@ https://github.com/Marquezv/AssemblyVotesMC
 ## About
 Assembly Votes is an API under development, focused on facilitating the creation of voting sessions in polls created by users.
 
-
 - Timer for start end final session
 - Easy creation of users and surveys
 - easy-to-use API
@@ -26,7 +25,9 @@ Assembly Votes is an API under development, focused on facilitating the creation
 ## In constrution :construction:
 - Increase test coverage
 - Study and implement AOP
- 
+
+![AssemblyVotes](AssemblyVotes.jpg)
+
 ## Start Server 🌐
 ##### for run in local machine use local branch
 ### Download 📥
