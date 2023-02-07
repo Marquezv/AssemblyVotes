@@ -24,7 +24,7 @@ Assembly Votes is an API under development, focused on facilitating the creation
 
 ## In constrution :construction:
 - Increase test coverage
-- Study and implement AOP
+- Study and implement MicroService (RabbitMQ, Docker, ...)
 
 ![AssemblyVotes](AssemblyVotes.jpg)
 
