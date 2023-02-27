@@ -32,9 +32,9 @@ public class SessionServiceTest {
 	private static final long SESSION_ID = (long) 1;
 	private static final long USER_ID = (long) 1;
 	private static final long SURVEY_ID = (long) 1;
-	private static final LocalDateTime STARTED_ON = LocalDateTime.of(2022,12,15,18,22,30);
+	private static final LocalDateTime STARTED_ON = LocalDateTime.of(2030,12,15,18,22,30);
 	private static final LocalDateTime ERROR_STARTED_ON= LocalDateTime.of(2022,12,9,18,22,30);
-	private static final LocalDateTime CLOSED_ON = LocalDateTime.of(2022,12,16,18,22,30);
+	private static final LocalDateTime CLOSED_ON = LocalDateTime.of(2030,12,16,18,22,30);
 	
 	private User user;
 	

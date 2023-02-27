@@ -1,4 +1,4 @@
-package com.vmarquezv.dev.assemblyVotes;
+package com.vmarquezv.dev.assemblyVotes.service;
 
 
 import org.junit.jupiter.api.Test;

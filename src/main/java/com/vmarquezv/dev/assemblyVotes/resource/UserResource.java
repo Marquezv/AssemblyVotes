@@ -8,7 +8,6 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,14 +33,16 @@ public class UserResource {
 	UserService service;
 	
 	@PostMapping
-	public ResponseEntity<UserResponseDTO> insert(@Valid @RequestBody UserRequestDTO userRequestDTO, Errors err) throws Exception{
-		if (err.hasErrors()) {
+	public ResponseEntity<UserResponseDTO> insert(@Valid @RequestBody UserRequestDTO userRequestDTO) throws Exception{
+		try {
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID)
+					.buildAndExpand(service.insert(userRequestDTO).getUser_id()).toUri();
+			return ResponseEntity.created(uri).build();
+		} catch(Exception err) {
 			throw new InvalidFormatException("CPF - Invalid");
+
 		}
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(ID)
-				.buildAndExpand(service.insert(userRequestDTO).getUser_id()).toUri();
-		return ResponseEntity.created(uri).build();
 	}
 	
 	@GetMapping
